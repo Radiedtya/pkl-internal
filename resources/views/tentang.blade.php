@@ -40,5 +40,10 @@ resources/views/tentang.blade.php FUNGSI: Halaman tentang toko online
 
     <a href="/">&laquo; Kembali ke Home</a>
     {{-- ↑ Link biasa ke halaman utama --}}
+    <hr>
+    <a href="{{ route('kategori.detail', ['nama' => 'eletronik']) }}">Lihat Kategori Eletronik</a>
+    <a href="{{ route('produk.detail', ['id' => 1]) }}">Lihat Produk 1</a>
+    <a href="{{ route('produk.detail', ['id' => 2]) }}">Lihat Produk 2</a>
+    {{-- ↑ Link ke halaman detail produk dengan ID 1 dan 2 --}}
   </body>
 </html>
