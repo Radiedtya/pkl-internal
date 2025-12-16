@@ -6,6 +6,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/mockup', function () {
+    return view('mockup');
+});
+
 Route::get('/tentang', function () {
     return view('tentang');
 });
@@ -24,3 +28,4 @@ Route::get('/kategori/{nama?}', function ($nama = 'Semua') {
 Route::get('/produk/{id}', function ($id = 'belum-ada') {
     return "Detail produk dengan ID: $id";
 })->name('produk.detail');
+

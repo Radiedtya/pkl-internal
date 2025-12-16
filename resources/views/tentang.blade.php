@@ -23,6 +23,13 @@ resources/views/tentang.blade.php FUNGSI: Halaman tentang toko online
       h1 {
         color: #4f46e5; /* Warna indigo */
       }
+      .link-detail-kategori a {
+        display: inline-block;
+        margin-right: 15px;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #2563eb; /* Warna biru */
+      }
     </style>
   </head>
   <body>
@@ -34,16 +41,18 @@ resources/views/tentang.blade.php FUNGSI: Halaman tentang toko online
     ================================================ Kurung kurawal ganda
     digunakan untuk menampilkan data PHP Data otomatis di-escape untuk mencegah
     XSS attack ================================================ --}}
-    <p>Waktu saat ini: {{ now()->format('d M Y, H:i:s') }}</p>
+    <p>Waktu saat ini: {{ now()->format('l, d M Y, H:i:s') }}</p>
     {{-- ↑ now() = Fungsi Laravel untuk waktu sekarang ↑ ->format() = Format
     tanggal sesuai pattern ↑ d M Y, H:i:s = 11 Dec 2024, 14:30:00 --}}
 
     <a href="/">&laquo; Kembali ke Home</a>
     {{-- ↑ Link biasa ke halaman utama --}}
     <hr>
-    <a href="{{ route('kategori.detail', ['nama' => 'eletronik']) }}">Lihat Kategori Eletronik</a>
-    <a href="{{ route('produk.detail', ['id' => 1]) }}">Lihat Produk 1</a>
-    <a href="{{ route('produk.detail', ['id' => 2]) }}">Lihat Produk 2</a>
-    {{-- ↑ Link ke halaman detail produk dengan ID 1 dan 2 --}}
+    <div class="link-detail-kategori">
+        <a href="{{ route('kategori.detail', ['nama' => 'eletronik']) }}">Lihat Kategori Eletronik</a>
+        <a href="{{ route('produk.detail', ['id' => 1]) }}">Lihat Produk 1</a>
+        <a href="{{ route('produk.detail', ['id' => 2]) }}">Lihat Produk 2</a>
+        {{-- ↑ Link ke halaman detail produk dengan ID 1 dan 2 --}}
+    </div>
   </body>
 </html>
