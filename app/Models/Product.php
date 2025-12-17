@@ -48,6 +48,19 @@ class Product extends Model
                 }
             }
         });
+
+        // logika untuk updating slug jika nama berubah
+        static::updating(function ($product) {
+            if ($product->isDirty('name')) {
+                $product->slug = Str::slug($product->name);
+                $count = static::where('slug', 'like', $product->slug . '%')
+                    ->where('id', '!=', $product->id)
+                    ->count();
+                if ($count > 0) {
+                    $product->slug .= '-' . ($count + 1);
+                }
+            }
+        });
     }
 
     // ==================== RELATIONSHIPS ====================
@@ -137,7 +150,7 @@ class Product extends Model
     public function getImageUrlAttribute(): string
     {
         if ($this->primaryImage) {
-            return $this->primaryImage->image_url;
+            return $this->primaryImage->image_path;
         }
         return asset('images/no-image.png');
     }
