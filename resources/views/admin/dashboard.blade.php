@@ -8,8 +8,11 @@
     <title>Dashboard Admin</title>
 </head>
 <body>
-    <div>
-        hai {{ Auth::user()->name }} anda telah login sebagai admin
-    </div>
+    <h2>Welcome to Admin Dashboard</h2>
+    hai {{ Auth::user()->name }} anda telah login sebagai admin
+    <a href="/home">
+        Kembali ke Home
+    </a>
+    
 </body>
 </html>

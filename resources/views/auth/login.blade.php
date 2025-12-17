@@ -225,15 +225,24 @@
                 <div class="mb-3">
                   <button class="btn btn-success d-grid w-100" type="submit">Masuk</button>
                 </div>
-                <hr />
+
+                <div class="position-relative my-4">
+                  <hr />
+                  <span
+                    class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted"
+                  >
+                    atau
+                  </span>
+                </div>
+
                 <div class="d-grid gap-2">
-                  <a href="#" class="btn btn-outline-dark">
+                  <a href="{{ route('auth.google') }}" class="btn btn-outline-dark">
                     <img
                       src="https://www.svgrepo.com/show/475656/google-color.svg"
                       width="20"
                       class="me-2"
                     />
-                    Masuk dengan Google
+                    Masuk dengan Akun Google
                   </a>
                 </div>
               </form>
