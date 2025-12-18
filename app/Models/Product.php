@@ -102,9 +102,28 @@ class Product extends Model
     /**
      * Harga yang ditampilkan (diskon atau normal).
      */
+    /**
+     * ACCESSOR: Harga yang ditampilkan (bisa diskon atau normal)
+     *
+     * Accessor adalah property VIRTUAL yang dihitung saat diakses.
+     * Tidak ada di database, tapi bisa diakses seperti kolom biasa.
+     *
+     * PENAMAAN:
+     * get{NamaAttribute}Attribute
+     * getDisplayPriceAttribute -> $product->display_price
+     *
+     * CARA PAKAI:
+     * $product->display_price   // 120000 (kalau diskon)
+     *                           // 150000 (kalau tidak diskon)
+     */
     public function getDisplayPriceAttribute(): float
     {
-        return $this->discount_price ?? $this->price;
+        // Cek apakah ada harga diskon DAN diskon lebih murah dari harga normal
+        if ($this->discount_price !== null && $this->discount_price < $this->price) {
+            return (float) $this->discount_price;
+        }
+        // Jika tidak ada diskon, return harga normal
+        return (float) $this->price;
     }
 
     /**
@@ -116,6 +135,7 @@ class Product extends Model
         return 'Rp ' . number_format($this->display_price, 0, ',', '.');
     }
 
+
     /**
      * Format harga asli (sebelum diskon).
      */
@@ -125,23 +145,36 @@ class Product extends Model
     }
 
     /**
-     * Persentase diskon.
+     * ACCESSOR: Persentase diskon.
+     *
+     * CARA PAKAI:
+     * "Diskon {{ $product->discount_percentage }}%"  // "Diskon 20%"
      */
     public function getDiscountPercentageAttribute(): int
     {
         if (!$this->has_discount) {
             return 0;
         }
+        // Rumus: ((Harga Asli - Harga Diskon) / Harga Asli) * 100
+        // Contoh: ((150000 - 120000) / 150000) * 100 = 20%
         return round((($this->price - $this->discount_price) / $this->price) * 100);
     }
 
     /**
-     * Cek apakah produk memiliki diskon.
+     * ACCESSOR: Cek apakah produk punya diskon.
+     *
+     * CARA PAKAI:
+     * @if($product->has_discount)
+     *     <span>SALE!</span>
+     * @endif
      */
     public function getHasDiscountAttribute(): bool
     {
         return $this->discount_price !== null
             && $this->discount_price < $this->price;
+        // True jika:
+        // 1. discount_price tidak null (ada diisi)
+        // 2. DAN discount_price lebih kecil dari price (benar-benar diskon)
     }
 
     /**
@@ -179,6 +212,20 @@ class Product extends Model
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
+    }
+
+    /**
+     * SCOPE: Filter produk yang sedang diskon
+     *
+     * CARA PAKAI:
+     * Product::onSale()->get()  // Semua produk diskon
+     */
+    public function scopeOnSale($query)
+    {
+        return $query->whereNotNull('discount_price')
+                     ->whereColumn('discount_price', '<', 'price');
+        // ↑ whereColumn() membandingkan 2 kolom di database
+        //   Berbeda dengan where() yang membandingkan kolom dengan nilai
     }
 
     /**
