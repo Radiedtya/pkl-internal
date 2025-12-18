@@ -30,7 +30,9 @@ semua halaman ======================================== --}}
     {{-- ↑ Load font Nunito dari Bunny Fonts (alternatif Google Fonts) --}}
 
     <!-- Scripts & Styles -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js']) {{-- ↑ Load file
+    @vite(['resources/sass/app.scss', 'resources/js/app.js']) 
+
+    {{-- ↑ Load file
     CSS dan JS yang sudah di-compile oleh Vite - app.scss berisi Bootstrap dan
     custom styles - app.js berisi Bootstrap JS dan custom scripts --}}
   </head>
