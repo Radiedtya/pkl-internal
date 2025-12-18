@@ -3,11 +3,12 @@
      FUNGSI: Navigation bar untuk customer
      ================================================ --}}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-success shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
     <div class="container">
         {{-- Logo & Brand --}}
-        <a class="navbar-brand" href="{{ route('home') }}">
-            <img src="{{ asset('assets/skolafit-removebg-preview.png') }}" alt="logo" width="150">
+        <a class="navbar-brand text-primary" href="{{ route('home') }}">
+            <i class="bi bi-bag-heart-fill me-2"></i>
+            TokoOnline
         </a>
 
         {{-- Mobile Toggle --}}
@@ -28,7 +29,7 @@
                            placeholder="Cari produk..."
                            value="{{ request('q') }}">
                     <button class="btn btn-outline-primary" type="submit">
-                        <i class="bi bi-search text-dark"></i>
+                        <i class="bi bi-search"></i>
                     </button>
                 </div>
             </form>
