@@ -11,13 +11,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $stats = [
-            'total_users' => 1500,
-            'total_orders' => 3200,
-            'total_revenue' => 1250000,
-        ];
-
-        return view('admin.dashboard', compact('stats'));
+        //
     }
 
     /**
