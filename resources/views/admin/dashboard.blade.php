@@ -1,160 +1,150 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin | Dashboard</title>
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/skolafit-removebg-preview.png') }}" />
+{{-- ================================================
+     FILE: resources/views/admin/dashboard.blade.php
+     FUNGSI: Dashboard admin dengan statistik
+     ================================================ --}}
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+@extends('layouts.admin')
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/fonts/boxicons.css') }}" />
+@section('title', 'Dashboard')
+@section('title', 'Dashboard')
+@section('page-title', 'Dashboard')
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/core.css') }}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/theme-default.css') }}" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="{{ asset('/assets/css/demo.css') }}" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}" />
-
-    <!-- Page CSS -->
-    <!-- Page -->
-    <link rel="stylesheet" href="{{ asset('/assets/vendor/css/pages/page-auth.css') }}" />
-    <!-- Helpers -->
-    <script src="{{ asset('/assets/vendor/js/helpers.js') }}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{ asset('/assets/js/config.js') }}"></script>
-</head>
-<body>
-    
-    
-<!-- Content -->
-<div class="container-xxl container-p-y">
-
-  <!-- Welcome Card -->
-  <div class="row">
-    <div class="col-lg-12 mb-4 order-0">
-      <div class="card">
-        <div class="d-flex align-items-end row">
-          <div class="col-sm-7">
-            <div class="card-body">
-              <h2 class="card-title text-primary">
-                Selamat Datang, {{ Auth::user()->name ?? 'User' }} 👋
-              </h2>
-              <p class="text-muted">
-                <i>
-                  Kamu berhasil login ke sistem. Semangat berkarya dan lanjutkan aktivitasmu hari ini!  
-                  Jangan lupa, kalau ada yang mau kamu kelola atau update, gas aja — semuanya udah siap membantu aktivitasmu.  
-                  Have a productive day, bro!
-                </i>
-              </p>
-
-              <div class="text-primary mt-4">
-                <span><i class="bi bi-clock-history"></i> Login terakhir : 
-                  <strong>{{ now()->format('d-M-Y, H:i') }}</strong>
-                </span><br>
-                <span><i class="bi bi-laptop"></i> Sistem : <strong>v1.0</strong></span><br>
-                <span><i class="bi bi-shield-check"></i> Status : <strong>Aktif</strong></span>
-              </div>
+@section('content')
+    {{-- Stats Cards --}}
+    {{-- Data $stats dikirim dari Admin/DashboardController --}}
+    <div class="row g-4 mb-4">
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Total Pendapatan</p>
+                            <h4 class="mb-0">Rp {{ number_format($stats['total_revenue'], 0, ',', '.') }}</h4>
+                        </div>
+                        <div class="bg-success bg-opacity-10 rounded p-3">
+                            <i class="bi bi-currency-dollar text-success fs-4"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
+        </div>
 
-          <div class="col-sm-5 text-center text-sm-left">
-            <div class="card-body pb-0 px-0 px-md-4">
-              <img src="{{ asset('/assets/img/illustrations/man-with-laptop-light.png') }}"
-                   height="150"
-                   alt="User Illustration"
-                   class="img-fluid animated fadeIn"
-                   data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                   data-app-light-img="illustrations/man-with-laptop-light.png" />
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Total Pesanan</p>
+                            <h4 class="mb-0">{{ $stats['total_orders'] }}</h4>
+                        </div>
+                        <div class="bg-primary bg-opacity-10 rounded p-3">
+                            <i class="bi bi-bag text-primary fs-4"></i>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Stats Section -->
-  <div class="row">
-    <div class="col-md-4 col-sm-6 mb-4">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body d-flex align-items-center">
-          <div class="me-3">
-            <span class="badge bg-primary p-3 rounded">
-              <i class="bi bi-people fs-4"></i>
-            </span>
-          </div>
-          <div>
-            <h5 class="card-title mb-1">Total Pengguna</h5>
-            <h3 class="fw-bold text-primary">{{ \App\Models\User::count() }}</h3>
-          </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Perlu Diproses</p>
+                            <h4 class="mb-0">{{ $stats['pending_orders'] }}</h4>
+                        </div>
+                        <div class="bg-warning bg-opacity-10 rounded p-3">
+                            <i class="bi bi-clock text-warning fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-    <div class="col-md-4 col-sm-6 mb-4">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body d-flex align-items-center">
-          <div class="me-3">
-            <span class="badge bg-success p-3 rounded">
-              <i class="bi bi-check-circle fs-4"></i>
-            </span>
-          </div>
-          <div>
-            <h5 class="card-title mb-1">Status Akun</h5>
-            <h3 class="fw-bold text-success">Verified</h3>
-          </div>
+        <div class="col-sm-6 col-xl-3">
+            <div class="card border-0 shadow-sm h-100">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p class="text-muted mb-1">Stok Menipis</p>
+                            <h4 class="mb-0">{{ $stats['low_stock'] }}</h4>
+                        </div>
+                        <div class="bg-danger bg-opacity-10 rounded p-3">
+                            <i class="bi bi-exclamation-triangle text-danger fs-4"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
 
-    <div class="col-md-4 col-sm-6 mb-4">
-      <div class="card border-0 shadow-sm h-100">
-        <div class="card-body d-flex align-items-center">
-          <div class="me-3">
-            <span class="badge bg-warning p-3 rounded">
-              <i class="bi bi-bar-chart fs-4"></i>
-            </span>
-          </div>
-          <div>
-            <h5 class="card-title mb-1">Level Akses</h5>
-            <h3 class="fw-bold text-warning">{{ Auth::user()->role ?? 'User' }}</h3>
-          </div>
+    <div class="row g-4">
+        {{-- Recent Orders --}}
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Pesanan Terbaru</h5>
+                    <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-outline-primary">
+                        Lihat Semua
+                    </a>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>No. Order</th>
+                                    <th>Customer</th>
+                                    <th>Total</th>
+                                    <th>Status</th>
+                                    <th>Tanggal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($recentOrders as $order)
+                                    <tr>
+                                        <td>
+                                            <a href="{{ route('admin.orders.show', $order) }}">
+                                                #{{ $order->order_number }}
+                                            </a>
+                                        </td>
+                                        <td>{{ $order->user->name }}</td>
+                                        <td>Rp {{ number_format($order->total_amount, 0, ',', '.') }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ $order->status_color }}">
+                                                {{ ucfirst($order->status) }}
+                                            </span>
+                                        </td>
+                                        <td>{{ $order->created_at->format('d M Y') }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+
+        {{-- Quick Actions --}}
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Aksi Cepat</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid gap-2">
+                        <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
+                            <i class="bi bi-plus-circle me-2"></i> Tambah Produk
+                        </a>
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-folder-plus me-2"></i> Kelola Kategori
+                        </a>
+                        <a href="{{ route('admin.reports.sales') }}" class="btn btn-outline-primary">
+                            <i class="bi bi-file-earmark-bar-graph me-2"></i> Lihat Laporan
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-
-
-</div>
-<!-- / Content -->
-
-<style>
-  .tool-icon {
-    width: 80px;
-    height: 80px;
-    transition: 0.2s ease;
-  }
-  .tool-icon:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-</style>
-
-
-
-
-</body>
-</html>
+@endsection

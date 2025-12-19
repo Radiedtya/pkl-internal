@@ -3,91 +3,124 @@
      FUNGSI: Footer website
      ================================================ --}}
 
-<footer class="bg-dark text-light pt-5 pb-3 mt-5">
+<footer class="bg-dark text-light pt-5 pb-3 mt-5 position-relative">
+
+    <!-- Accent line -->
+    <div class="position-absolute top-0 start-0 w-100" style="height:4px;
+         background: linear-gradient(90deg,#0d6efd,#20c997,#ffc107);">
+    </div>
+
     <div class="container">
         <div class="row g-4">
-            {{-- Brand & Description --}}
+
+            <!-- Brand -->
             <div class="col-lg-4 col-md-6">
-                <h5 class="text-white mb-3">
-                    <i class="bi bi-bag-heart-fill me-2"></i>TokoOnline
+                <h5 class="text-white mb-3 fw-bold">
+                    <i class="bi bi-bag-heart-fill text-primary me-2"></i>TokoOnline
                 </h5>
-                <p class="text-secondary">
-                    Toko online terpercaya dengan berbagai produk berkualitas.
-                    Belanja mudah, aman, dan nyaman.
+                <p class="text-secondary small">
+                    SkolaFit Toko online terpercaya dengan berbagai produk berkualitas.
+                    Belanja <b>mudah</b>, <b>aman</b>, dan <b>nyaman</b>.
                 </p>
-                <div class="d-flex gap-3 mt-3">
-                    <a href="#" class="text-secondary fs-5"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-secondary fs-5"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="text-secondary fs-5"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="text-secondary fs-5"><i class="bi bi-youtube"></i></a>
+
+                <!-- Social -->
+                <div class="d-flex gap-2 mt-3">
+                    <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="social-icon"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="social-icon"><i class="bi bi-youtube"></i></a>
                 </div>
             </div>
 
-            {{-- Quick Links --}}
+            <!-- Menu -->
             <div class="col-lg-2 col-md-6">
                 <h6 class="text-white mb-3">Menu</h6>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <a href="{{ route('catalog.index') }}" class="text-secondary text-decoration-none">
-                            Katalog Produk
-                        </a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="text-secondary text-decoration-none">Tentang Kami</a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="text-secondary text-decoration-none">Kontak</a>
-                    </li>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="{{ route('catalog.index') }}">Katalog Produk</a></li>
+                    <li><a href="#">Tentang Kami</a></li>
+                    <li><a href="#">Kontak</a></li>
                 </ul>
             </div>
 
-            {{-- Help --}}
+            <!-- Help -->
             <div class="col-lg-2 col-md-6">
                 <h6 class="text-white mb-3">Bantuan</h6>
-                <ul class="list-unstyled">
-                    <li class="mb-2">
-                        <a href="#" class="text-secondary text-decoration-none">FAQ</a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="text-secondary text-decoration-none">Cara Belanja</a>
-                    </li>
-                    <li class="mb-2">
-                        <a href="#" class="text-secondary text-decoration-none">Kebijakan Privasi</a>
-                    </li>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Cara Belanja</a></li>
+                    <li><a href="#">Kebijakan Privasi</a></li>
                 </ul>
             </div>
 
-            {{-- Contact --}}
+            <!-- Newsletter -->
             <div class="col-lg-4 col-md-6">
-                <h6 class="text-white mb-3">Hubungi Kami</h6>
-                <ul class="list-unstyled text-secondary">
-                    <li class="mb-2">
-                        <i class="bi bi-geo-alt me-2"></i>
-                        Jl. Contoh No. 123, Bandung
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-telephone me-2"></i>
-                        (022) 123-4567
-                    </li>
-                    <li class="mb-2">
-                        <i class="bi bi-envelope me-2"></i>
-                        info@tokoonline.com
-                    </li>
+                <h6 class="text-white mb-3">Dapatkan Promo</h6>
+                <p class="text-secondary small">
+                    Daftar newsletter untuk info diskon & produk terbaru.
+                </p>
+
+                <form class="d-flex gap-2">
+                    <input type="email" class="form-control form-control-sm bg-dark text-light border-secondary"
+                           placeholder="Email kamu">
+                    <button class="btn btn-primary btn-sm">
+                        <i class="bi bi-send"></i>
+                    </button>
+                </form>
+
+                <!-- Contact -->
+                <ul class="list-unstyled text-secondary small mt-3">
+                    <li class="mb-1"><i class="bi bi-geo-alt me-2"></i>Bandung, Indonesia</li>
+                    <li class="mb-1"><i class="bi bi-telephone me-2"></i>(022) 123-4567</li>
+                    <li><i class="bi bi-envelope me-2"></i>info@tokoonline.com</li>
                 </ul>
             </div>
+
         </div>
 
         <hr class="my-4 border-secondary">
 
-        <div class="row align-items-center">
-            <div class="col-md-6 text-center text-md-start">
-                <p class="text-secondary mb-0 small">
-                    &copy; {{ date('Y') }} TokoOnline. All rights reserved.
-                </p>
+        <div class="row align-items-center small">
+            <div class="col-md-6 text-center text-md-start text-secondary">
+                &copy; {{ date('Y') }} <b class="text-light">TokoOnline</b>. All rights reserved.
             </div>
             <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                <img src="{{ asset('images/payment-methods.png') }}" alt="Payment Methods" height="30">
+                <img src="{{ asset('images/payment-methods.png') }}" alt="Payment" height="28">
             </div>
         </div>
     </div>
 </footer>
+
+<style>
+  .social-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #1f1f1f;
+    color: #adb5bd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .3s ease;
+  }
+
+  .social-icon:hover {
+    background: #0d6efd;
+    color: #fff;
+    transform: translateY(-3px);
+  }
+
+  .footer-links li {
+    margin-bottom: 8px;
+  }
+
+  .footer-links a {
+    color: #adb5bd;
+    text-decoration: none;
+    transition: .3s;
+  }
+
+  .footer-links a:hover {
+    color: #fff;
+    padding-left: 6px;
+  }
+</style>

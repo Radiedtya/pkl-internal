@@ -23,6 +23,11 @@ class OrderController extends Controller
         //
     }
 
+    public function salesReport()
+    {
+        return view('admin.reports.sales');
+    }
+
     /**
      * Store a newly created resource in storage.
      */

@@ -83,7 +83,7 @@
                                  Jangan query database langsung di Blade view di production app! --}}
                             @php
                                 $pendingCount = \App\Models\Order::where('status', 'pending')
-                                    ->where('payment_status', 'paid')->count();
+                                    ->where('status', 'paid')->count();
                             @endphp
                             @if($pendingCount > 0)
                                 <span class="badge bg-warning text-dark ms-auto">{{ $pendingCount }}</span>
@@ -99,7 +99,7 @@
                     </li>
 
                     <li class="nav-item mt-3">
-                        <span class="nav-link text-muted small text-uppercase">Laporan</span>
+                        <span class="nav-link text-muted small text-uppercase text-white">Laporan</span>
                     </li>
 
                     <li class="nav-item">
@@ -118,7 +118,6 @@
                          class="rounded-circle me-2" width="36" height="36">
                     <div class="flex-grow-1">
                         <div class="small fw-medium">{{ auth()->user()->name }}</div>
-                        <div class="small text-muted">Administrator</div>
                     </div>
                 </div>
             </div>
@@ -130,7 +129,7 @@
             <header class="bg-white shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">@yield('page-title', 'Dashboard')</h4>
                 <div class="d-flex align-items-center">
-                    <a href="{{ route('home') }}" class="btn btn-outline-secondary btn-sm me-2" target="_blank">
+                    <a href="/" class="btn btn-outline-secondary btn-sm me-2" target="_blank">
                         <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Toko
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">

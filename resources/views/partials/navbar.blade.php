@@ -7,8 +7,7 @@
     <div class="container">
         {{-- Logo & Brand --}}
         <a class="navbar-brand text-primary" href="{{ route('home') }}">
-            <i class="bi bi-bag-heart-fill me-2"></i>
-            TokoOnline
+            <img src="{{ asset('assets/skolafit2.png') }}" alt="" width="200">
         </a>
 
         {{-- Mobile Toggle --}}
@@ -97,7 +96,7 @@
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
                                     <a class="dropdown-item text-primary" href="{{ route('admin.dashboard') }}">
-                                        <i class="bi bi-speedometer2 me-2"></i> Admin Panel
+                                        <i class="bi bi-shop fs-4 me-2"></i> Admin Panel
                                     </a>
                                 </li>
                             @endif

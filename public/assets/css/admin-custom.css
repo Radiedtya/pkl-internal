@@ -1,0 +1,110 @@
+/* ======================================================
+   SNEAT 1.0.0 — TOTAL OVERRIDE (FINAL)
+   AUTHOR: RYN MODE 🔥
+====================================================== */
+
+/* ---------- FORCE ROOT ---------- */
+html,
+body {
+  background: #f4f6fb !important;
+  min-height: 100%;
+}
+
+/* ---------- FORCE ALL MAIN WRAPPERS ---------- */
+.layout-wrapper,
+.layout-container,
+.layout-content-navbar,
+.layout-page,
+.content-wrapper,
+.content-wrapper > *,
+.content-wrapper > .container-xxl {
+  background: #f4f6fb !important;
+}
+
+/* ---------- REMOVE DEFAULT SNEAT BACKGROUND ---------- */
+.bg-body,
+.bg-light,
+.bg-lighter,
+.bg-white {
+  background-color: transparent !important;
+}
+
+/* ---------- NAVBAR ---------- */
+.layout-navbar,
+.bg-navbar-theme {
+  background: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+/* SEARCH INPUT */
+.layout-navbar .form-control {
+  background: #eef2ff !important;
+  border-radius: 14px !important;
+  padding: 10px 14px;
+}
+
+/* ---------- SIDEBAR ---------- */
+.layout-menu,
+.bg-menu-theme {
+  background: #0f172a !important;
+}
+
+.menu-inner .menu-link {
+  color: #cbd5e1 !important;
+  border-radius: 12px;
+  margin: 4px 10px;
+}
+
+.menu-inner .menu-link:hover {
+  background: rgba(255,255,255,.08) !important;
+  color: #ffffff !important;
+}
+
+.menu-item.active > .menu-link {
+  background: #4f46e5 !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 20px rgba(79,70,229,.4);
+}
+
+/* ---------- CARD (BIAR KELIATAN NGAMBANG) ---------- */
+.card {
+  background: #ffffff !important;
+  border: none !important;
+  border-radius: 18px !important;
+  box-shadow: 0 12px 32px rgba(0,0,0,.08) !important;
+}
+
+/* ---------- DROPDOWN ---------- */
+.dropdown-menu {
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,.12) !important;
+}
+
+/* ---------- TEXT ---------- */
+.text-muted {
+  color: #6b7280 !important;
+}
+
+/* ---------- BADGE ---------- */
+.badge.bg-primary {
+  background: #4f46e5 !important;
+}
+.badge.bg-success {
+  background: #22c55e !important;
+}
+.badge.bg-warning {
+  background: #f59e0b !important;
+}
+
+/* ---------- CONTAINER FIX ---------- */
+.container-xxl {
+  padding-top: 1.5rem;
+  background: transparent !important;
+}
+
+/* ---------- SMOOTH ---------- */
+* {
+  transition: background-color .2s ease, box-shadow .2s ease, color .2s ease;
+}
