@@ -3,11 +3,11 @@
      FUNGSI: Navigation bar untuk customer
      ================================================ --}}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm sticky-top">
     <div class="container">
         {{-- Logo & Brand --}}
         <a class="navbar-brand text-primary" href="{{ route('home') }}">
-            <img src="{{ asset('assets/skolafit2.png') }}" alt="" width="200">
+            <img src="{{ asset('assets/skolafit-removebg-preview.png') }}" alt="" width="200">
         </a>
 
         {{-- Mobile Toggle --}}
@@ -20,14 +20,14 @@
         {{-- Navbar Content --}}
         <div class="collapse navbar-collapse" id="navbarMain">
             {{-- Search Form --}}
-            <form class="d-flex mx-auto" style="max-width: 400px; width: 100%;"
+            <form class="d-flex mx-auto" style="max-width: 700px; width: 100%;"
                   action="{{ route('catalog.index') }}" method="GET">
                 <div class="input-group">
                     <input type="text" name="q"
                            class="form-control"
                            placeholder="Cari produk..."
                            value="{{ request('q') }}">
-                    <button class="btn btn-outline-primary" type="submit">
+                    <button class="btn btn-outline-dark" type="submit">
                         <i class="bi bi-search"></i>
                     </button>
                 </div>

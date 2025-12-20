@@ -5,6 +5,7 @@ namespace App\Observers;
 
 use App\Models\Product;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Auth;
 
 class ProductObserver
 {
@@ -13,14 +14,19 @@ class ProductObserver
      */
     public function created(Product $product): void
     {
-        // Clear cache produk featured
+        // Clear cache
         Cache::forget('featured_products');
         Cache::forget('category_' . $product->category_id . '_products');
+
+        // Skip activity log saat seeding / console
+        if (app()->runningInConsole() || !Auth::check()) {
+            return;
+        }
 
         // Log activity
         activity()
             ->performedOn($product)
-            ->causedBy(auth()->user())
+            ->causedBy(Auth::user())
             ->log('Produk baru dibuat: ' . $product->name);
     }
 
@@ -29,14 +35,20 @@ class ProductObserver
      */
     public function updated(Product $product): void
     {
-        // Clear related caches
         Cache::forget('product_' . $product->id);
         Cache::forget('featured_products');
 
-        // Jika kategori berubah
         if ($product->isDirty('category_id')) {
             Cache::forget('category_' . $product->getOriginal('category_id') . '_products');
             Cache::forget('category_' . $product->category_id . '_products');
+        }
+
+        // Optional: log update activity
+        if (!app()->runningInConsole() && Auth::check()) {
+            activity()
+                ->performedOn($product)
+                ->causedBy(Auth::user())
+                ->log('Produk diperbarui: ' . $product->name);
         }
     }
 
@@ -45,9 +57,16 @@ class ProductObserver
      */
     public function deleted(Product $product): void
     {
-        // Clear caches
         Cache::forget('product_' . $product->id);
         Cache::forget('featured_products');
         Cache::forget('category_' . $product->category_id . '_products');
+
+        // Optional: log delete activity
+        if (!app()->runningInConsole() && Auth::check()) {
+            activity()
+                ->performedOn($product)
+                ->causedBy(Auth::user())
+                ->log('Produk dihapus: ' . $product->name);
+        }
     }
 }

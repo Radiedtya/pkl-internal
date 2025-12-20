@@ -45,8 +45,8 @@
             {{-- Brand --}}
             <div class="p-3 border-bottom border-secondary">
                 <a href="{{ route('admin.dashboard') }}" class="text-white text-decoration-none d-flex align-items-center">
-                    <i class="bi bi-shop fs-4 me-2"></i>
-                    <span class="fs-5 fw-bold">Admin Panel</span>
+                    <i class="bi bi-houses fs-4 me-2"></i>
+                    <span class="fs-5 fw-semibold">Admin Panel</span>
                 </a>
             </div>
 
@@ -98,8 +98,11 @@
                         </a>
                     </li>
 
-                    <li class="nav-item mt-3">
-                        <span class="nav-link text-muted small text-uppercase text-white">Laporan</span>
+                    <li class="nav-item">
+                        <div class="p-3 border-bottom border-secondary text-white d-flex align-items-center">
+                            <i class="bi bi-journals fs-5 me-2"></i>
+                            <span class="fw-semibold">Laporan</span>
+                        </div>
                     </li>
 
                     <li class="nav-item">
@@ -130,7 +133,7 @@
                 <h4 class="mb-0">@yield('page-title', 'Dashboard')</h4>
                 <div class="d-flex align-items-center">
                     <a href="/" class="btn btn-outline-secondary btn-sm me-2" target="_blank">
-                        <i class="bi bi-box-arrow-up-right me-1"></i> Lihat Toko
+                        <i class="bi bi-shop"></i> Lihat Toko
                     </a>
                     <form method="POST" action="{{ route('logout') }}" class="d-inline">
                         @csrf

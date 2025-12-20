@@ -15,9 +15,7 @@
 
             <!-- Brand -->
             <div class="col-lg-4 col-md-6">
-                <h5 class="text-white mb-3 fw-bold">
-                    <i class="bi bi-bag-heart-fill text-primary me-2"></i>TokoOnline
-                </h5>
+                <h3 class="text-white mb-3 fw-bold">SkolaFit</h3>
                 <p class="text-secondary small">
                     SkolaFit Toko online terpercaya dengan berbagai produk berkualitas.
                     Belanja <b>mudah</b>, <b>aman</b>, dan <b>nyaman</b>.
@@ -54,24 +52,13 @@
 
             <!-- Newsletter -->
             <div class="col-lg-4 col-md-6">
-                <h6 class="text-white mb-3">Dapatkan Promo</h6>
-                <p class="text-secondary small">
-                    Daftar newsletter untuk info diskon & produk terbaru.
-                </p>
-
-                <form class="d-flex gap-2">
-                    <input type="email" class="form-control form-control-sm bg-dark text-light border-secondary"
-                           placeholder="Email kamu">
-                    <button class="btn btn-primary btn-sm">
-                        <i class="bi bi-send"></i>
-                    </button>
-                </form>
+                <h6 class="text-white mb-3">Kontak</h6>
 
                 <!-- Contact -->
                 <ul class="list-unstyled text-secondary small mt-3">
                     <li class="mb-1"><i class="bi bi-geo-alt me-2"></i>Bandung, Indonesia</li>
                     <li class="mb-1"><i class="bi bi-telephone me-2"></i>(022) 123-4567</li>
-                    <li><i class="bi bi-envelope me-2"></i>info@tokoonline.com</li>
+                    <li><i class="bi bi-envelope me-2"></i>info@skolafit.com</li>
                 </ul>
             </div>
 
@@ -81,10 +68,10 @@
 
         <div class="row align-items-center small">
             <div class="col-md-6 text-center text-md-start text-secondary">
-                &copy; {{ date('Y') }} <b class="text-light">TokoOnline</b>. All rights reserved.
+                &copy; {{ date('Y') }} <b class="text-light">SkolaFit</b>. All rights reserved.
             </div>
             <div class="col-md-6 text-center text-md-end mt-3 mt-md-0">
-                <img src="{{ asset('images/payment-methods.png') }}" alt="Payment" height="28">
+                <img src="{{ asset('assets/skolafit-removebg-preview.png') }}" alt="Payment" height="28">
             </div>
         </div>
     </div>

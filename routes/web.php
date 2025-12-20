@@ -85,7 +85,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Laporan Penjualan
     Route::get('/reports/sales', [AdminOrderController::class, 'salesReport'])->name('reports.sales');
+    Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+    // Manajemen Pengguna
     Route::get('/user', [AdminController::class, 'index'])->name('users.index');
+    Route::delete('/user/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
+    // Manajemen Kategori   
+    Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
 });
 
 

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 
-class WishtlistController extends Controller
+class WishlistController extends Controller
 {
     /**
      * Display a listing of the resource.

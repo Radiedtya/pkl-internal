@@ -6,7 +6,6 @@
 @extends('layouts.admin')
 
 @section('title', 'Dashboard')
-@section('title', 'Dashboard')
 @section('page-title', 'Dashboard')
 
 @section('content')
@@ -85,7 +84,7 @@
                 <div class="card-header bg-white d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Pesanan Terbaru</h5>
                     <a href="{{ route('admin.orders.index') }}" class="btn btn-sm btn-outline-primary">
-                        Lihat Semua
+                        Lihat Semua &rarr;
                     </a>
                 </div>
                 <div class="card-body p-0">
@@ -101,7 +100,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($recentOrders as $order)
+                                @forelse($recentOrders as $order)
                                     <tr>
                                         <td>
                                             <a href="{{ route('admin.orders.show', $order) }}">
@@ -117,7 +116,13 @@
                                         </td>
                                         <td>{{ $order->created_at->format('d M Y') }}</td>
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr>
+                                        <td colspan="5" class="text-center text-muted py-4">
+                                            Tidak ada pesanan terbaru.
+                                        </td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
