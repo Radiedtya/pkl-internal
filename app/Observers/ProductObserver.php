@@ -4,8 +4,9 @@
 namespace App\Observers;
 
 use App\Models\Product;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class ProductObserver
 {
@@ -18,16 +19,14 @@ class ProductObserver
         Cache::forget('featured_products');
         Cache::forget('category_' . $product->category_id . '_products');
 
-        // Skip activity log saat seeding / console
-        if (app()->runningInConsole() || !Auth::check()) {
-            return;
+        // Logging native Laravel (AMAN)
+        if (auth()->check()) {
+            Log::info('Produk baru dibuat', [
+                'product_id' => $product->id,
+                'name'       => $product->name,
+                'user_id'    => auth()->id(),
+            ]);
         }
-
-        // Log activity
-        activity()
-            ->performedOn($product)
-            ->causedBy(Auth::user())
-            ->log('Produk baru dibuat: ' . $product->name);
     }
 
     /**
@@ -43,12 +42,12 @@ class ProductObserver
             Cache::forget('category_' . $product->category_id . '_products');
         }
 
-        // Optional: log update activity
-        if (!app()->runningInConsole() && Auth::check()) {
-            activity()
-                ->performedOn($product)
-                ->causedBy(Auth::user())
-                ->log('Produk diperbarui: ' . $product->name);
+        if (auth()->check()) {
+            Log::info('Produk diupdate', [
+                'product_id' => $product->id,
+                'changes'    => $product->getChanges(),
+                'user_id'    => auth()->id(),
+            ]);
         }
     }
 
@@ -61,12 +60,75 @@ class ProductObserver
         Cache::forget('featured_products');
         Cache::forget('category_' . $product->category_id . '_products');
 
-        // Optional: log delete activity
-        if (!app()->runningInConsole() && Auth::check()) {
-            activity()
-                ->performedOn($product)
-                ->causedBy(Auth::user())
-                ->log('Produk dihapus: ' . $product->name);
+        if (auth()->check()) {
+            Log::warning('Produk dihapus', [
+                'product_id' => $product->id,
+                'name'       => $product->name,
+                'user_id'    => auth()->id(),
+            ]);
         }
     }
 }
+
+
+
+
+
+// <?php
+// namespace App\Observers;
+
+// use App\Models\Product;
+// use Illuminate\Support\Facades\Cache;
+// use Illuminate\Support\Facades\Log;
+
+// class ProductObserver
+// {
+//     public function created(Product $product): void
+//     {
+//         Cache::forget('featured_products');
+//         Cache::forget('category_' . $product->category_id . '_products');
+
+//         // Logging native Laravel (AMAN)
+//         if (auth()->check()) {
+//             Log::info('Produk baru dibuat', [
+//                 'product_id' => $product->id,
+//                 'name'       => $product->name,
+//                 'user_id'    => auth()->id(),
+//             ]);
+//         }
+//     }
+
+//     public function updated(Product $product): void
+//     {
+//         Cache::forget('product_' . $product->id);
+//         Cache::forget('featured_products');
+
+//         if ($product->isDirty('category_id')) {
+//             Cache::forget('category_' . $product->getOriginal('category_id') . '_products');
+//             Cache::forget('category_' . $product->category_id . '_products');
+//         }
+
+//         if (auth()->check()) {
+//             Log::info('Produk diupdate', [
+//                 'product_id' => $product->id,
+//                 'changes'    => $product->getChanges(),
+//                 'user_id'    => auth()->id(),
+//             ]);
+//         }
+//     }
+
+//     public function deleted(Product $product): void
+//     {
+//         Cache::forget('product_' . $product->id);
+//         Cache::forget('featured_products');
+//         Cache::forget('category_' . $product->category_id . '_products');
+
+//         if (auth()->check()) {
+//             Log::warning('Produk dihapus', [
+//                 'product_id' => $product->id,
+//                 'name'       => $product->name,
+//                 'user_id'    => auth()->id(),
+//             ]);
+//         }
+//     }
+// }

@@ -9,10 +9,18 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Str;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
+
+
 
 class Product extends Model
 {
+    use LogsActivity;
     use HasFactory;
+
+    protected static $logAttributes = ['name', 'price', 'stock'];
+
 
     protected $fillable = [
         'category_id',
@@ -36,6 +44,15 @@ class Product extends Model
         'is_active' => 'boolean',
         'is_featured' => 'boolean',
     ];
+
+    // ==================== ACTIVITY LOG ====================
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'price', 'stock', 'category_id'])
+            ->logOnlyDirty()
+            ->useLogName('product');
+    }
 
     // ==================== BOOT ====================
 

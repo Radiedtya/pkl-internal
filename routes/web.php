@@ -17,6 +17,8 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -62,6 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
 });
 
 // ================================================
@@ -91,6 +94,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::delete('/user/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
     // Manajemen Kategori   
     Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+
 });
 
 
@@ -169,11 +173,7 @@ Route::middleware('auth')->group(function () {
 // name('admin.')                = Semua nama route diawali admin.
 // ================================================
 
-Route::middleware(['auth', 'admin'])
-    ->prefix('admin')
-    ->name('admin.')
-    ->group(function () {
-
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
         // /admin/dashboard
         Route::get('/dashboard', [AdminController::class, 'dashboard'])
             ->name('dashboard');
@@ -190,6 +190,13 @@ Route::middleware(['auth', 'admin'])
         // - GET    /admin/products/{id}/edit→ edit    (admin.products.edit)
         // - PUT    /admin/products/{id}     → update  (admin.products.update)
         // - DELETE /admin/products/{id}     → destroy (admin.products.destroy)
+
+        // CRUD Kategori: /admin/categories, /admin/categories/create, dll
+        Route::resource('categories', CategoryController::class)->except(['show']); // Kategori biasanya tidak butuh show detail page
+        // Produk
+        Route::resource('products', ProductController::class);
+
+
 });
 
 // login dengan Google OAuth (Socialite) - modul hari 4
