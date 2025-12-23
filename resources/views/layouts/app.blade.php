@@ -58,6 +58,11 @@
     {{-- Stack untuk JS tambahan per halaman --}}
     @stack('scripts')
 
+    {{-- ============================================
+         AJAX Wishlist Script
+         ============================================ --}}
+@push('scripts')
+
 <script>
   /**
    * Fungsi AJAX untuk Toggle Wishlist
@@ -126,5 +131,7 @@
     }
   }
 </script>
+      
+@endpush
 </body>
 </html>

@@ -20,4 +20,18 @@ class CartItem extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    // Relasi ke Keranjang
+    public function cart()
+    {
+        return $this->belongsTo(Cart::class);
+    }
+
+
+    // accessor untuk mendapatkan subtotal item (harga * jumlah)
+    
+    public function getSubtotalAttribute(): int
+    {
+        return $this->quantity * $this->product->price;
+    }
 }
