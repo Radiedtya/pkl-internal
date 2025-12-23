@@ -5,6 +5,8 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-lg-8">
+
+        {{-- Header --}}
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="h3 mb-0 text-gray-800">Edit Produk</h2>
             <a href="{{ route('admin.products.index') }}" class="btn btn-outline-secondary">
@@ -12,8 +14,10 @@
             </a>
         </div>
 
+        {{-- Card --}}
         <div class="card shadow-sm border-0">
             <div class="card-body p-4">
+
                 <form action="{{ route('admin.products.update', $product->id) }}"
                       method="POST"
                       enctype="multipart/form-data">
@@ -30,7 +34,7 @@
                         @error('name') <div class="invalid-feedback">{{ $message }}</div> @enderror
                     </div>
 
-                    {{-- Kategori Dropdown --}}
+                    {{-- Kategori --}}
                     <div class="mb-3">
                         <label class="form-label fw-bold">Kategori</label>
                         <select name="category_id"
@@ -67,7 +71,7 @@
                         </div>
                     </div>
 
-                    {{-- Berat & Upload Gambar --}}
+                    {{-- Berat & Upload --}}
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Berat (Gram)</label>
@@ -80,43 +84,53 @@
 
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">
-                                Upload Gambar
-                                <small class="text-muted">(Opsional)</small>
+                                Upload Gambar (Opsional)
                             </label>
                             <input type="file"
                                    name="images[]"
                                    multiple
-                                   class="form-control @error('images.*') is-invalid @enderror">
-                            @error('images.*')
-                                <div class="invalid-feedback d-block">{{ $message }}</div>
-                            @enderror
+                                   class="form-control @error('images') is-invalid @enderror">
+                            @error('images') <div class="invalid-feedback">{{ $message }}</div> @enderror
                         </div>
                     </div>
 
-                    {{-- Preview Gambar Lama --}}
-                    @if($product->images && $product->images->count())
+                    {{-- Preview gambar lama --}}
+                    @if($product->images->count())
                         <div class="mb-3">
                             <label class="form-label fw-bold">Gambar Saat Ini</label>
-                            <div class="d-flex flex-wrap gap-2">
+                            <div class="d-flex gap-3 flex-wrap">
                                 @foreach($product->images as $image)
-                                    <img src="{{ asset('storage/' . $image->path) }}"
-                                         class="rounded border"
-                                         style="width:100px;height:100px;object-fit:cover;">
+                                    <div class="position-relative">
+                                        <img src="{{ $image->image_url }}"
+                                             class="rounded shadow-sm"
+                                             width="120"
+                                             height="120"
+                                             style="object-fit: cover;">
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label fw-bold">Upload baru</label>
-                            <input type="file" name="images[]" multiple class="form-control">
-                        </div>
                     @endif
 
-                    <button type="submit" class="btn btn-warning btn-lg w-100">
-                        Update Produk
+                    {{-- Status --}}
+                    <div class="form-check form-switch mb-4">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="is_active"
+                               value="1"
+                               {{ old('is_active', $product->is_active) ? 'checked' : '' }}>
+                        <label class="form-check-label fw-bold">Produk Aktif</label>
+                    </div>
+
+                    {{-- Submit --}}
+                    <button type="submit" class="btn btn-primary btn-lg w-100">
+                        <i class="bi bi-save me-2"></i> Update Produk
                     </button>
+
                 </form>
             </div>
         </div>
+
     </div>
 </div>
 @endsection

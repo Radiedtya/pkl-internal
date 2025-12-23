@@ -82,11 +82,13 @@
                                 {{-- Gambar Utama --}}
                                 <td>
                                     @if($product->primaryImage)
-                                        <img src="{{ asset('storage/' . $product->primaryImage->path) }}"
+                                        <img src="{{ $product->primaryImage->image_url }}"
                                              class="rounded border"
                                              style="width:60px;height:60px;object-fit:cover;">
                                     @else
-                                        <span class="text-muted small">No Image</span>
+                                        <div class="bg-light rounded d-flex align-items-center justify-content-center me-2" style="width: 40px; height: 40px;">
+                                            <i class="bi bi-image text-muted"></i>
+                                        </div>
                                     @endif
                                 </td>
 

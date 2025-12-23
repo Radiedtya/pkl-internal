@@ -16,6 +16,10 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a3550;
+        }
         .sidebar {
             min-height: 100vh;
             background: linear-gradient(180deg, #1e3a5f 0%, #0f172a 100%);

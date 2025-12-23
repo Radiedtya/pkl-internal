@@ -155,36 +155,53 @@
 
 
     {{-- Promo Banner --}}
-    <section class="py-5">
+    <section class="promo-section py-5">
         <div class="container">
             <div class="row g-4">
+
+                <!-- Flash Sale -->
                 <div class="col-md-6">
-                    <div class="card bg-warning text-dark border-0" style="min-height: 200px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <h3>Flash Sale!</h3>
-                            <p>Diskon hingga 50% untuk produk pilihan</p>
-                            <a href="#" class="btn btn-dark" style="width: fit-content;">
+                    <div class="promo-card promo-sale">
+                        <div class="promo-content">
+                            <span class="promo-badge">🔥 Flash Sale</span>
+                            <h3>Diskon Besar Hari Ini</h3>
+                            <p>
+                                Nikmati potongan harga hingga
+                                <strong>50%</strong> untuk produk pilihan terbaik.
+                                Jangan sampai kehabisan!
+                            </p>
+                            <a href="#" class="btn btn-dark">
                                 Lihat Promo
                             </a>
                         </div>
                     </div>
                 </div>
+
+                <!-- Member -->
                 <div class="col-md-6">
-                    <div class="card bg-info text-white border-0" style="min-height: 200px;">
-                        <div class="card-body d-flex flex-column justify-content-center">
-                            <h3>Member Baru?</h3>
-                            <p>Dapatkan voucher Rp 50.000 untuk pembelian pertama</p>
-                            <a href="{{ route('register') }}" class="btn btn-light" style="width: fit-content;">
+                    <div class="promo-card promo-member">
+                        <div class="promo-content">
+                            <span class="promo-badge">🎁 Member Baru</span>
+                            <h3>Bonus Spesial untuk Kamu</h3>
+                            <p>
+                                Daftar sekarang dan dapatkan
+                                <strong>voucher Rp 50.000</strong>
+                                untuk pembelian pertamamu.
+                            </p>
+                            <a href="{{ route('register') }}" class="btn btn-light">
                                 Daftar Sekarang
                             </a>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    
+
+
+
 @endsection
 
 <style>
@@ -238,6 +255,77 @@
 
     .category-card:hover {
         background: linear-gradient(135deg, #4f46e5, #22c55e);
+    }
+    /* =========================
+    PROMO SECTION
+    ========================= */
+    .promo-section {
+        background: transparent;
+    }
+
+    /* Card base */
+    .promo-card {
+        position: relative;
+        border-radius: 22px;
+        min-height: 220px;
+        display: flex;
+        align-items: center;
+        padding: 2.5rem;
+        color: #fff;
+        overflow: hidden;
+        box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+        transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .promo-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 25px 60px rgba(0,0,0,0.18);
+    }
+
+    /* Content */
+    .promo-content {
+        position: relative;
+        z-index: 2;
+        max-width: 420px;
+    }
+
+    .promo-card h3 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: .75rem;
+    }
+
+    .promo-card p {
+        font-size: .95rem;
+        opacity: .95;
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    /* Badge */
+    .promo-badge {
+        display: inline-block;
+        background: rgba(255,255,255,.25);
+        padding: .35rem .8rem;
+        border-radius: 50px;
+        font-size: .75rem;
+        margin-bottom: .75rem;
+    }
+
+    /* Variants */
+    .promo-sale {
+        background: linear-gradient(135deg, #f59e0b, #ef4444);
+    }
+
+    .promo-member {
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+    }
+
+    /* Button tweak */
+    .promo-card .btn {
+        border-radius: 50px;
+        padding: .55rem 1.4rem;
+        font-weight: 500;
     }
 
 </style>

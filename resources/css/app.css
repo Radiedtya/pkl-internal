@@ -3,80 +3,173 @@
    FUNGSI: Entry point untuk semua CSS
    ================================================ */
 
-/* Import Bootstrap CSS */
-/* Kita import di sini agar ikut ter-compile oleh Vite dan bisa di-minify saat production */
+/* Import Bootstrap */
 @import "bootstrap/dist/css/bootstrap.min.css";
 
 /* Import Bootstrap Icons */
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
 /* ================================================
-   CUSTOM STYLES - Variabel dan Override
+   ROOT VARIABLES (BRAND SYSTEM)
    ================================================ */
-
 :root {
-  /* Warna Brand Toko */
-  --primary-color: #4f46e5; /* Indigo */
-  --secondary-color: #10b981; /* Emerald */
-  --accent-color: #f59e0b; /* Amber */
+  /* Brand Colors */
+  --primary-color: #4f46e5;     /* Indigo */
+  --secondary-color: #10b981;   /* Emerald */
+  --accent-color: #f59e0b;      /* Amber */
 
-  /* Warna Text */
-  --text-dark: #1f2937;
-  --text-muted: #6b7280;
-  --text-light: #9ca3af;
-}
+  /* Text Colors */
+  --text-dark: #0f172a;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
 
-/* Override Bootstrap Primary */
-.btn-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.btn-primary:hover {
-  background-color: #4338ca;
-  border-color: #4338ca;
+  /* Background */
+  --bg-soft: #f5f7ff;
+  --bg-soft-2: #eef2ff;
 }
 
 /* ================================================
-   LAYOUT STYLES
+   GLOBAL
    ================================================ */
-
 body {
   font-family: "Inter", system-ui, -apple-system, sans-serif;
-  color: var(--text-light);
+  background: linear-gradient(
+    180deg,
+    var(--bg-soft) 0%,
+    var(--bg-soft-2) 45%,
+    #f8fafc 100%
+  );
+  color: var(--text-dark);
+  min-height: 100vh;
+  margin: 0;
 }
 
-/* Navbar Custom */
-.navbar-brand {
-  font-weight: 700;
-  font-size: 1.5rem;
+/* Headings */
+h1, h2, h3, h4, h5 {
+  color: var(--text-dark);
 }
 
-/* Footer */
-footer {
-  background-color: #1f2937;
-  color: #fff;
+/* Paragraph */
+p {
+  color: var(--text-muted);
 }
 
-/* Card Produk */
+/* ================================================
+   BOOTSTRAP OVERRIDE
+   ================================================ */
+.btn-primary {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  border: none;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
+/* ================================================
+   NAVBAR (GRADIENT)
+   ================================================ */
+.navbar-gradient {
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+}
+
+/* Brand & Link */
+.navbar-gradient .navbar-brand,
+.navbar-gradient .nav-link {
+  color: #ffffff !important;
+  font-weight: 500;
+}
+
+.navbar-gradient .nav-link:hover {
+  opacity: 0.85;
+}
+
+/* Search */
+.navbar-gradient .input-group {
+  border-radius: 50px;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.navbar-gradient .form-control {
+  border: none;
+  box-shadow: none;
+}
+
+/* Icon hover */
+.navbar-gradient i {
+  transition: transform 0.2s ease;
+}
+
+.navbar-gradient a:hover i {
+  transform: scale(1.1);
+}
+
+/* Dropdown */
+.navbar-gradient .dropdown-menu {
+  border-radius: 14px;
+}
+
+/* Mobile toggle */
+.navbar-gradient .navbar-toggler {
+  border-color: rgba(255,255,255,.5);
+}
+
+.navbar-gradient .navbar-toggler-icon {
+  filter: invert(1);
+}
+
+/* ================================================
+   CARD (GLOBAL)
+   ================================================ */
+.card {
+  background: #ffffff;
+  border-radius: 18px;
+  border: none;
+  box-shadow: 0 15px 35px rgba(37,99,235,.08);
+}
+
+/* ================================================
+   PRODUCT CARD
+   ================================================ */
 .product-card {
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
 }
 
-/* Badge Diskon */
+/* Discount Badge */
 .badge-discount {
   position: absolute;
-  top: 10px;
-  left: 10px;
-  background-color: #ef4444;
-  color: white;
-  padding: 4px 8px;
-  border-radius: 4px;
+  top: 12px;
+  left: 12px;
+  background: linear-gradient(135deg, #ef4444, #f97316);
+  color: #ffffff;
+  padding: 4px 10px;
+  border-radius: 50px;
   font-size: 0.75rem;
   font-weight: 600;
+}
+
+/* ================================================
+   FOOTER
+   ================================================ */
+footer {
+  background: #0f172a;
+  color: #c7d2fe;
+}
+
+footer a {
+  color: #c7d2fe;
+}
+
+footer a:hover {
+  color: #ffffff;
 }

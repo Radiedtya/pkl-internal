@@ -59,18 +59,15 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold">Upload Gambar</label>
-                            <input type="file" name="images" multiple class="form-control">
+                            <input type="file" name="images[]" multiple class="form-control">
                         </div>
                     </div>
 
                     {{-- status --}}
-                    <div class="mb-3">
-                        <label class="form-label fw-bold">Status</label>
-                        <select name="status" class="form-select @error('status') is-invalid @enderror">
-                            <option value="aktif" {{ old('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                            <option value="nonaktif" {{ old('status') == 'nonaktif' ? 'selected' : '' }}>Nonaktif</option>
-                        </select>
-                        @error('status') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="is_active" value="1"
+                               {{ $category->is_active ? 'checked' : '' }}>
+                        <label class="form-check-label">Aktif</label>
                     </div>
 
                     <button type="submit" class="btn btn-primary btn-lg w-100">Simpan Produk</button>

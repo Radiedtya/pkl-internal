@@ -149,12 +149,26 @@ class CartService
      * Helper untuk memastikan user berhak mengubah cart ini
      * Mencegah Insecure Direct Object Reference (IDOR)
      */
-    private function verifyCartOwnership(Cart $cart): void
+    // private function verifyCartOwnership(Cart $cart): void
+    // {
+    //     $currentCart = $this->getCart();
+    //     // Bandingkan ID cart yang mau diedit dengan ID cart user saat ini
+    //     if ($cart->id !== $currentCart->id) {
+    //         abort(403, 'Akses ditolak. Ini bukan keranjang Anda.');
+    //     }
+    // }
+
+    private function verifyCartOwnership(?Cart $cart): void
     {
+        if (!$cart) {
+            abort(404, 'Keranjang tidak ditemukan.');
+        }
+
         $currentCart = $this->getCart();
-        // Bandingkan ID cart yang mau diedit dengan ID cart user saat ini
+
         if ($cart->id !== $currentCart->id) {
             abort(403, 'Akses ditolak. Ini bukan keranjang Anda.');
         }
     }
+
 }
