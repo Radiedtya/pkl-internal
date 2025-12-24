@@ -11,6 +11,7 @@ class Cart extends Model
 
     protected $fillable = [
         'user_id',
+        'session_id',
     ];
 
     // Relasi ke User
@@ -21,7 +22,7 @@ class Cart extends Model
 
     // Relasi ke CartItem
     public function items()
-    {
+    {   
         return $this->hasMany(CartItem::class);
     }
 }

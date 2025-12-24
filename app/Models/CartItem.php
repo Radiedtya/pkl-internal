@@ -21,7 +21,7 @@ class CartItem extends Model
         return $this->belongsTo(Product::class);
     }
 
-    // Relasi ke Keranjang
+    // Relasi ke Keranjang  
     public function cart()
     {
         return $this->belongsTo(Cart::class);
