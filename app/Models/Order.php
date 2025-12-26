@@ -25,4 +25,17 @@ class Order extends Model
         'payment_method',
         'notes',
     ];
+
+    // Relasi ke User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    // Relasi ke OrderItem
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
+
 }

@@ -1,64 +1,41 @@
 <?php
+// app/Http/Controllers/CheckoutController.php
 
 namespace App\Http\Controllers;
 
+use App\Services\OrderService;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        // Pastikan keranjang tidak kosong
+        $cart = auth()->user()->cart;
+        if (!$cart || $cart->items->isEmpty()) {
+            return redirect()->route('cart.index')->with('error', 'Keranjang kosong.');
+        }
+
+        return view('checkout.index', compact('cart'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function store(Request $request, OrderService $orderService)
     {
-        //
-    }
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'phone' => 'required|string|max:20',
+            'address' => 'required|string|max:500',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        try {
+            $order = $orderService->createOrder(auth()->user(), $request->only(['name', 'phone', 'address']));
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+            // Redirect ke halaman pembayaran (akan dibuat besok)
+            // Untuk sekarang, redirect ke detail order
+            return redirect()->route('orders.show', $order)
+                ->with('success', 'Pesanan berhasil dibuat! Silahkan lakukan pembayaran.');
+        } catch (\Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

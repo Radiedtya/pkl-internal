@@ -12,9 +12,18 @@ class OrderItem extends Model
     protected $fillable = [
         'order_id',
         'product_id',
+        'product_name',
         'quantity',
         'price',
+        'subtotal',
     ];
+    
+    // protected $fillable = [
+    //     'order_id',
+    //     'product_id',
+    //     'quantity',
+    //     'price',
+    // ];
 
     // Relasi ke Produk
     public function product()
