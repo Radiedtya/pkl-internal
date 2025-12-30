@@ -14,6 +14,8 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\MidtransNotificationController;
+
 
 
 // Admin Controllers
@@ -21,6 +23,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
 
@@ -84,6 +87,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/orders/{order}/pending', [PaymentController::class, 'pending'])
         ->name('orders.pending');
 });
+// Midtrans Notification Route (tidak perlu login)
+// ============================================================
+// MIDTRANS WEBHOOK
+// Route ini HARUS public (tanpa auth middleware)
+// Karena diakses oleh SERVER Midtrans, bukan browser user
+// ============================================================
+Route::post('midtrans/notification', [MidtransNotificationController::class, 'handle'])->name('midtrans.notification');
+
+
 
 // ================================================
 // HALAMAN ADMIN (Butuh Login + Role Admin)
@@ -105,7 +117,12 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::patch('/orders/{order}/status', [AdminOrderController::class, 'updateStatus'])->name('orders.updateStatus');
 
     // Laporan Penjualan
-    Route::get('/reports/sales', [AdminOrderController::class, 'salesReport'])->name('reports.sales');
+    Route::get('/reports/sales', [AdminReportController::class, 'sales'])
+        ->name('reports.sales');
+
+    Route::get('/reports/sales/export', [AdminReportController::class, 'exportSales'])
+        ->name('reports.export-sales');
+
     Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
     // Manajemen Pengguna
     Route::get('/user', [AdminController::class, 'index'])->name('users.index');
