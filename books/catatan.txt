@@ -1,0 +1,160 @@
+========== N+1 Problem ==========
+Apa itu N+1 Problem?
+N+1 Problem adalah masalah query database berlebihan yang terjadi saat:
+1 query dipakai untuk mengambil data utama
+lalu N query tambahan dipakai untuk mengambil relasi data satu per satu
+
+➡️ Akibatnya aplikasi jadi lambat, boros query, dan nggak efisien
+
+2️⃣ Contoh Kasus Sederhana
+
+Misal:
+Ada 10 produk
+Setiap produk punya 1 kategori
+❌ Kode yang menyebabkan N+1 Problem
+$products = Product::all();
+
+foreach ($products as $product) {
+    echo $product->category->name;
+}
+
+🔍 Query yang terjadi:
+
+SELECT * FROM products
+
+SELECT * FROM categories WHERE id = 1
+
+SELECT * FROM categories WHERE id = 2
+
+SELECT * FROM categories WHERE id = 3
+
+...
+➡️ Total = 1 + N query
+
+3️⃣ Kenapa N+1 Problem Berbahaya?
+Dampak	Penjelasan
+⚡ Lambat	Query makin banyak = response time naik
+💾 Boros resource	Database kerja lebih berat
+📉 Tidak scalable	Data makin besar → makin parah
+😵 Sulit dideteksi	Jalan di lokal, mati di production
+4️⃣ Solusi Utama: Eager Loading
+
+Laravel menyediakan Eager Loading untuk mengatasi N+1 Problem.
+
+✅ Solusi dengan with()
+$products = Product::with('category')->get();
+
+foreach ($products as $product) {
+    echo $product->category->name;
+}
+
+🔍 Query yang terjadi:
+
+SELECT * FROM products
+
+SELECT * FROM categories WHERE id IN (1,2,3,...)
+
+➡️ Hanya 2 query! 🎉
+
+5️⃣ Perbedaan Eager vs Lazy Loading
+Jenis	Penjelasan
+Lazy Loading	Relasi dipanggil saat dibutuhkan
+Eager Loading	Relasi diambil sejak awal
+❌ Lazy (rawan N+1)
+$product->category->name;
+
+✅ Eager
+Product::with('category')->get();
+
+6️⃣ N+1 di Nested Relationship
+
+Contoh:
+
+Order → OrderItems → Product
+
+❌ Salah
+$orders = Order::all();
+
+foreach ($orders as $order) {
+    foreach ($order->items as $item) {
+        echo $item->product->name;
+    }
+}
+
+
+➡️ Query bisa puluhan kali
+
+✅ Benar
+$orders = Order::with('items.product')->get();
+
+
+➡️ Semua relasi di-load sekaligus
+
+7️⃣ N+1 di Blade View
+
+N+1 sering ngumpet di Blade
+
+❌ Contoh di Blade
+@foreach ($products as $product)
+    {{ $product->category->name }}
+@endforeach
+
+
+Kalau category belum di-eager load → N+1
+
+✅ Solusi
+
+Pastikan controller:
+
+$products = Product::with('category')->get();
+
+8️⃣ Menggunakan load() (Conditional Eager Loading)
+
+Kalau datanya sudah terlanjur diambil:
+
+$products = Product::all();
+$products->load('category');
+
+
+✔️ Berguna saat kondisi tertentu
+
+9️⃣ Batasi Kolom Relasi (Optimasi)
+Product::with(['category:id,name'])->get();
+
+
+➡️ Lebih ringan & cepat
+
+🔟 Deteksi N+1 Problem
+🔍 1. Laravel Debugbar
+
+Lihat jumlah query
+
+Kalau loop → query naik drastis → bahaya
+
+🔍 2. DB::enableQueryLog()
+DB::enableQueryLog();
+// code
+dd(DB::getQueryLog());
+
+1️⃣1️⃣ N+1 pada count() Relasi
+❌ Salah
+foreach ($categories as $category) {
+    echo $category->products->count();
+}
+
+✅ Benar
+$categories = Category::withCount('products')->get();
+
+1️⃣2️⃣ Best Practice Anti N+1
+
+✔ Selalu cek relasi di loop
+✔ Biasakan with() di controller
+✔ Jangan query di Blade
+✔ Gunakan withCount()
+✔ Aktifkan Debugbar saat development
+✔ Eager load nested relationship dari awal
+
+1️⃣3️⃣ Ringkasan Singkat (Buat Catatan Cepat)
+
+N+1 Problem terjadi ketika aplikasi menjalankan 1 query utama + banyak query tambahan akibat pemanggilan relasi di dalam loop.
+Solusinya adalah Eager Loading (with()) agar relasi diambil dalam jumlah query minimal, sehingga performa aplikasi Laravel tetap optimal.
