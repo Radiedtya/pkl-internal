@@ -4,32 +4,33 @@
 // FUNGSI: Mendefinisikan semua URL route aplikasi
 // ========================================
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Auth\GoogleController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CatalogController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\CatalogController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
-use App\Http\Controllers\OrderController;
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\MidtransNotificationController;
 
 
 
 // Admin Controllers
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\GoogleController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\MidtransNotificationController;
+use App\Http\Controllers\Admin\OrderController as AdminOrderController;
+
+
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-use App\Http\Controllers\Admin\ReportController as AdminReportController;
-use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\Admin\ProductController;
-
-
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 
 // ================================================
@@ -266,5 +267,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile/avatar', [ProfileController::class, 'deleteAvatar'])->name('profile.avatar.destroy');
     Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
 });
+
+Route::post('/login', [LoginController::class, 'login'])->middleware('throttle:5,1');
 
 Auth::routes();

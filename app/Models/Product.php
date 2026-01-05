@@ -232,13 +232,22 @@ class Product extends Model
      * 3. Kalau null, cek Collection Images ambil yang pertama
      * 4. Kalau semua null (gak punya gambar), return Placeholder
      */
+    // public function getImageUrlAttribute(): string
+    // {
+    //     if ($this->primaryImage) {
+    //         return $this->primaryImage->image_path;
+    //     }
+    //     return asset('images/no-image.png');
+    // }
     public function getImageUrlAttribute(): string
     {
-        if ($this->primaryImage) {
-            return $this->primaryImage->image_path;
+        if ($this->primaryImage && $this->primaryImage->image_path) {
+            return asset('storage/' . $this->primaryImage->image_path);
         }
+
         return asset('images/no-image.png');
     }
+
 
     /**
      * Cek apakah produk tersedia (aktif dan ada stok).

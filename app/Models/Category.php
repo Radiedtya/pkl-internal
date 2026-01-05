@@ -124,13 +124,23 @@ class Category extends Model
     /**
      * URL gambar kategori atau placeholder.
      */
+    // public function getImageUrlAttribute(): string
+    // {
+    //     if ($this->image) {
+    //         return asset('storage/' . $this->image);
+    //     }
+    //     return asset('images/category-placeholder.png');
+    // }
     public function getImageUrlAttribute(): string
     {
         if ($this->image) {
             return asset('storage/' . $this->image);
         }
+
         return asset('images/category-placeholder.png');
     }
+
+
 
 
     /**

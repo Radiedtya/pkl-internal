@@ -7,7 +7,7 @@
     {{-- Product Image --}}
     <div class="product-image position-relative">
         <a href="{{ route('catalog.show', $product->slug) }}">
-            <img src="{{ $product->image_url }}"
+            <img src="{{$product->image_url }}"
                  alt="{{ $product->name }}">
         </a>
 
