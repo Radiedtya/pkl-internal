@@ -17,13 +17,6 @@ class OrderItem extends Model
         'price',
         'subtotal',
     ];
-    
-    // protected $fillable = [
-    //     'order_id',
-    //     'product_id',
-    //     'quantity',
-    //     'price',
-    // ];
 
     // Relasi ke Produk
     public function product()

@@ -41,11 +41,11 @@ class PaymentController extends Controller
 
     public function success(Order $order)
     {
-    // Cek apakah ini memang milik user yang login
-    if ($order->user_id !== auth()->id()) {
-        abort(403);
-    }
-    // UPDATE STATUS MANUAL (Sambil nunggu materi Webhook)
+        // Cek apakah ini memang milik user yang login
+        if ($order->user_id !== auth()->id()) {
+            abort(403);
+        }
+        // UPDATE STATUS MANUAL (Sambil nunggu materi Webhook)
         if ($order->status === 'pending') {
             $order->update([
                 'status' => 'processing',

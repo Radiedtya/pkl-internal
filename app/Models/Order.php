@@ -32,6 +32,12 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
+    // Relasi ke Payment
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
     // Relasi ke OrderItem
     public function items()
     {

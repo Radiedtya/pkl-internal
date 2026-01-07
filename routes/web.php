@@ -95,6 +95,7 @@ Route::middleware('auth')->group(function () {
 // Karena diakses oleh SERVER Midtrans, bukan browser user
 // ============================================================
 Route::post('midtrans/notification', [MidtransNotificationController::class, 'handle'])->name('midtrans.notification');
+Route::post('/midtrans/callback', [PaymentCallbackController::class, 'handle']);
 
 
 
@@ -107,10 +108,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
     // Produk CRUD
-    Route::resource('products', AdminProductController::class);
+    Route::resource('/products', AdminProductController::class);
 
     // Kategori CRUD
-    Route::resource('categories', AdminCategoryController::class);
+    Route::resource('/categories', AdminCategoryController::class);
 
     // Manajemen Pesanan
     Route::get('/orders', [AdminOrderController::class, 'index'])->name('orders.index');
@@ -128,8 +129,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     // Manajemen Pengguna
     Route::get('/user', [AdminController::class, 'index'])->name('users.index');
     Route::delete('/user/{id}', [AdminController::class, 'destroy'])->name('users.destroy');
+    
     // Manajemen Kategori   
-    Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
+    // Route::get('/categories', [AdminCategoryController::class, 'index'])->name('categories.index');
 
 });
 
