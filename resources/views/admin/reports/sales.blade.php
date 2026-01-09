@@ -44,21 +44,21 @@
 <div class="card shadow-sm mb-4 filter-card border-0">
     <div class="card-body">
         <form method="GET" class="row g-3 align-items-end">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label class="form-label">Dari Tanggal</label>
                 <input type="date" name="date_from" value="{{ $dateFrom }}" class="form-control">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <label class="form-label">Sampai Tanggal</label>
                 <input type="date" name="date_to" value="{{ $dateTo }}" class="form-control">
             </div>
-            <div class="col-md-6 d-flex gap-2">
+            <div class="col-md-4 d-flex gap-2">
                 <button type="submit" class="btn btn-primary px-4">
-                    <i class="bi bi-funnel me-1"></i> Terapkan Filter
+                    <i class="bi bi-filter-square"></i> Terapkan Filter
                 </button>
                 <a href="{{ route('admin.reports.export-sales', request()->all()) }}"
                    class="btn btn-success px-4">
-                    <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+                    <i class="bi bi-file-earmark-spreadsheet"></i> Export Data ke Excel
                 </a>
             </div>
         </form>

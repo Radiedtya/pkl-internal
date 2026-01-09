@@ -1,30 +1,22 @@
 /* ================================================
-   FILE: resources/css/app.css
-   FUNGSI: Entry point untuk semua CSS
+   ENTRY POINT
    ================================================ */
-
-/* Import Bootstrap */
 @import "bootstrap/dist/css/bootstrap.min.css";
-
-/* Import Bootstrap Icons */
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
 /* ================================================
    ROOT VARIABLES (BRAND SYSTEM)
    ================================================ */
 :root {
-  /* Brand Colors */
-  --primary-color: #4f46e5;     /* Indigo */
-  --secondary-color: #10b981;   /* Emerald */
-  --accent-color: #f59e0b;      /* Amber */
+  --primary-color: #4f46e5;
+  --secondary-color: #10b981;
+  --accent-color: #f59e0b;
 
-  /* Text Colors */
   --text-dark: #0f172a;
   --text-muted: #64748b;
   --text-light: #94a3b8;
 
-  /* Background */
-  --bg-soft: #f5f7ff;
+  --bg-soft: #f8fafc;
   --bg-soft-2: #eef2ff;
 }
 
@@ -36,26 +28,24 @@ body {
   background: linear-gradient(
     180deg,
     var(--bg-soft) 0%,
-    var(--bg-soft-2) 45%,
-    #f8fafc 100%
+    var(--bg-soft-2) 50%,
+    #ffffff 100%
   );
   color: var(--text-dark);
   min-height: 100vh;
   margin: 0;
 }
 
-/* Headings */
 h1, h2, h3, h4, h5 {
   color: var(--text-dark);
 }
 
-/* Paragraph */
 p {
   color: var(--text-muted);
 }
 
 /* ================================================
-   BOOTSTRAP OVERRIDE
+   BUTTON OVERRIDE
    ================================================ */
 .btn-primary {
   background: linear-gradient(135deg, #2563eb, #7c3aed);
@@ -66,61 +56,85 @@ p {
   opacity: 0.9;
 }
 
+.btn-outline-primary {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
 .text-primary {
   color: var(--primary-color) !important;
 }
 
 /* ================================================
-   NAVBAR (GRADIENT)
+   NAVBAR (CLEAN STYLE)
    ================================================ */
-.navbar-gradient {
-  background: linear-gradient(135deg, #2563eb, #7c3aed);
+.navbar {
+  backdrop-filter: blur(6px);
 }
 
-/* Brand & Link */
-.navbar-gradient .navbar-brand,
-.navbar-gradient .nav-link {
-  color: #ffffff !important;
+.navbar .nav-link {
+  color: #374151;
   font-weight: 500;
 }
 
-.navbar-gradient .nav-link:hover {
-  opacity: 0.85;
+.navbar .nav-link:hover {
+  color: var(--primary-color);
+}
+
+.navbar .navbar-brand img {
+  transition: transform 0.25s ease;
+}
+
+.navbar .navbar-brand:hover img {
+  transform: scale(1.05);
 }
 
 /* Search */
-.navbar-gradient .input-group {
-  border-radius: 50px;
+.navbar .input-group {
+  border-radius: 999px;
   overflow: hidden;
-  background: #ffffff;
 }
 
-.navbar-gradient .form-control {
-  border: none;
+.navbar .form-control {
   box-shadow: none;
 }
 
-/* Icon hover */
-.navbar-gradient i {
-  transition: transform 0.2s ease;
+.navbar .form-control:focus {
+  box-shadow: none;
 }
 
-.navbar-gradient a:hover i {
-  transform: scale(1.1);
+/* Icon Button */
+.icon-btn {
+  font-size: 1.25rem;
+  color: #374151;
+}
+
+.icon-btn:hover {
+  color: var(--primary-color);
+}
+
+/* Badge Dot */
+.badge-dot {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
 }
 
 /* Dropdown */
-.navbar-gradient .dropdown-menu {
-  border-radius: 14px;
+.dropdown-menu {
+  border-radius: 16px;
+  border: none;
 }
 
-/* Mobile toggle */
-.navbar-gradient .navbar-toggler {
-  border-color: rgba(255,255,255,.5);
+.dropdown-item {
+  font-weight: 500;
 }
 
-.navbar-gradient .navbar-toggler-icon {
-  filter: invert(1);
+.dropdown-item:hover {
+  background: var(--bg-soft-2);
 }
 
 /* ================================================
@@ -130,7 +144,7 @@ p {
   background: #ffffff;
   border-radius: 18px;
   border: none;
-  box-shadow: 0 15px 35px rgba(37,99,235,.08);
+  box-shadow: 0 15px 35px rgba(15,23,42,0.08);
 }
 
 /* ================================================
@@ -153,7 +167,7 @@ p {
   background: linear-gradient(135deg, #ef4444, #f97316);
   color: #ffffff;
   padding: 4px 10px;
-  border-radius: 50px;
+  border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
 }
