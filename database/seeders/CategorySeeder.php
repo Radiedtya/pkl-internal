@@ -12,39 +12,27 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Elektronik',
-                'slug' => 'elektronik',
-                'description' => 'Perangkat elektronik seperti smartphone, laptop, dan gadget lainnya',
+                'name' => 'Sepatu',
+                'slug' => 'sepatu',
+                'description' => 'Berbagai jenis sepatu untuk pria dan wanita',
                 'is_active' => true,
             ],
             [
-                'name' => 'Fashion Pria',
-                'slug' => 'fashion-pria',
-                'description' => 'Pakaian, sepatu, dan aksesoris untuk pria',
+                'name' => 'Jersey Bola Pria',
+                'slug' => 'jersey-bola-pria',
+                'description' => 'Jersey bola pria untuk berbagai tim dan liga',
                 'is_active' => true,
             ],
             [
-                'name' => 'Fashion Wanita',
-                'slug' => 'fashion-wanita',
-                'description' => 'Pakaian, sepatu, dan aksesoris untuk wanita',
+                'name' => 'Jersey Bola Wanita',
+                'slug' => 'jersey-bola-wanita',
+                'description' => 'Jersey bola wanita untuk berbagai tim dan liga',
                 'is_active' => true,
             ],
             [
-                'name' => 'Makanan & Minuman',
-                'slug' => 'makanan-minuman',
-                'description' => 'Berbagai makanan ringan, minuman, dan bahan makanan',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Kesehatan & Kecantikan',
-                'slug' => 'kesehatan-kecantikan',
-                'description' => 'Produk kesehatan, skincare, dan kosmetik',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Rumah Tangga',
-                'slug' => 'rumah-tangga',
-                'description' => 'Peralatan rumah tangga dan dekorasi',
+                'name' => 'Aksesoris Olahraga',
+                'slug' => 'aksesoris-olahraga',
+                'description' => 'Aksesoris olahraga seperti tas, botol minum, dan lainnya',
                 'is_active' => true,
             ],
         ];

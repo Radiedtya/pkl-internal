@@ -1,8 +1,3 @@
-{{-- ================================================
-     FILE: resources/views/layouts/admin.blade.php
-     FUNGSI: Master layout untuk halaman admin
-     ================================================ --}}
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -13,153 +8,192 @@
     <title>@yield('title') - Admin Panel</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #1a3550;
-        }
-        .sidebar {
-            min-height: 100vh;
-            background: linear-gradient(180deg, #1e3a5f 0%, #0f172a 100%);
-        }
-        .sidebar .nav-link {
-            color: rgba(255,255,255,0.7);
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 4px 12px;
-            transition: all 0.2s;
-        }
-        .sidebar .nav-link:hover,
-        .sidebar .nav-link.active {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-        .sidebar .nav-link i {
-            width: 24px;
-        }
-    </style>
-    @stack('styles')
+<style>
+/* ===== GLOBAL ===== */
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 260px;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0f172a, #020617);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Brand */
+.sidebar-brand {
+    padding: 20px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+/* Nav */
+.sidebar-nav {
+    padding: 16px 0;
+    flex-grow: 1;
+}
+
+.sidebar .nav-link {
+    color: #94a3b8;
+    padding: 12px 20px;
+    margin: 4px 12px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: .25s ease;
+    position: relative;
+    font-weight: 500;
+}
+
+.sidebar .nav-link i {
+    font-size: 1.1rem;
+}
+
+/* Hover */
+.sidebar .nav-link:hover {
+    background: rgba(255,255,255,.08);
+    color: #fff;
+}
+
+/* Active */
+.sidebar .nav-link.active {
+    background: rgba(255,255,255,.12);
+    color: #fff;
+}
+.sidebar .nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 8px;
+    bottom: 8px;
+    width: 4px;
+    background: #3b82f6;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Section label */
+.sidebar-section {
+    padding: 12px 20px;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    color: #64748b;
+    margin-top: 16px;
+}
+
+/* User */
+.sidebar-user {
+    padding: 16px 20px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    color: #e5e7eb;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* ===== TOPBAR ===== */
+.topbar {
+    background: #fff;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+</style>
+
 </head>
-<body class="bg-light">
-    <div class="d-flex">
-        {{-- Sidebar --}}
-        <div class="sidebar d-flex flex-column" style="width: 260px;">
-            {{-- Brand --}}
-            <div class="p-3 border-bottom border-secondary">
-                <a href="{{ route('admin.dashboard') }}" class="text-white text-decoration-none d-flex align-items-center">
-                    <i class="bi bi-houses fs-4 me-2"></i>
-                    <span class="fs-5 fw-semibold">Admin Panel</span>
-                </a>
-            </div>
+<body>
 
-            {{-- Navigation --}}
-            <nav class="flex-grow-1 py-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a href="{{ route('admin.dashboard') }}"
-                           class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                            <i class="bi bi-speedometer2 me-2"></i> Dashboard
-                        </a>
-                    </li>
+<div class="d-flex">
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.products.index') }}"
-                           class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
-                            <i class="bi bi-box-seam me-2"></i> Produk
-                        </a>
-                    </li>
+    {{-- ===== SIDEBAR ===== --}}
+    <aside class="sidebar">
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.categories.index') }}"
-                           class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
-                            <i class="bi bi-folder me-2"></i> Kategori
-                        </a>
-                    </li>
+        <div class="sidebar-brand">
+            <i class="bi bi-shield-lock me-2"></i> Admin Panel
+        </div>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.orders.index') }}"
-                           class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
-                            <i class="bi bi-receipt me-2"></i> Pesanan
-                            {{-- Logic PHP di View ini hanya untuk contoh.
-                                 Best Practice: Gunakan View Composer atau inject variable dari Controller.
-                                 Jangan query database langsung di Blade view di production app! --}}
-                            @php
-                                $pendingCount = \App\Models\Order::where('status', 'pending')
-                                    ->where('status', 'paid')->count();
-                            @endphp
-                            @if($pendingCount > 0)
-                                <span class="badge bg-warning text-dark ms-auto">{{ $pendingCount }}</span>
-                            @endif
-                        </a>
-                    </li>
+        <nav class="sidebar-nav">
+            <a href="{{ route('admin.dashboard') }}"
+               class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.users.index') }}"
-                           class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
-                            <i class="bi bi-people me-2"></i> Pengguna
-                        </a>
-                    </li>
+            <a href="{{ route('admin.products.index') }}"
+               class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
+                <i class="bi bi-box"></i> Produk
+            </a>
 
-                    <li class="nav-item">
-                        <div class="p-3 border-bottom border-secondary text-white d-flex align-items-center">
-                            <i class="bi bi-journals fs-5 me-2"></i>
-                            <span class="fw-semibold">Laporan</span>
-                        </div>
-                    </li>
+            <a href="{{ route('admin.categories.index') }}"
+               class="nav-link {{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
+                <i class="bi bi-tags"></i> Kategori
+            </a>
 
-                    <li class="nav-item">
-                        <a href="{{ route('admin.reports.sales') }}"
-                           class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
-                            <i class="bi bi-graph-up me-2"></i> Laporan Penjualan
-                        </a>
-                    </li>
-                </ul>
-            </nav>
+            <a href="{{ route('admin.orders.index') }}"
+               class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
+                <i class="bi bi-receipt"></i> Pesanan
+            </a>
 
-            {{-- User Info --}}
-            <div class="p-3 border-top border-secondary">
-                <div class="d-flex align-items-center text-white">
-                    <img src="{{ auth()->user()->avatar_url }}"
-                         class="rounded-circle me-2" width="36" height="36">
-                    <div class="flex-grow-1">
-                        <div class="small fw-medium">{{ auth()->user()->name }}</div>
-                    </div>
-                </div>
+            <div class="sidebar-section">LAPORAN</div>
+
+            <a href="{{ route('admin.reports.sales') }}"
+               class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}">
+                <i class="bi bi-graph-up-arrow"></i> Penjualan
+            </a>
+        </nav>
+
+        {{-- User --}}
+        <div class="sidebar-user">
+            <img src="{{ auth()->user()->avatar_url }}"
+                 class="rounded-circle" width="36" height="36">
+            <div>
+                <div class="fw-semibold">{{ auth()->user()->name }}</div>
+                <small class="text-muted">Administrator</small>
             </div>
         </div>
 
-        {{-- Main Content --}}
-        <div class="flex-grow-1">
-            {{-- Top Bar --}}
-            <header class="bg-white shadow-sm py-3 px-4 d-flex justify-content-between align-items-center">
-                <h4 class="mb-0">@yield('page-title', 'Dashboard')</h4>
-                <div class="d-flex align-items-center">
-                    <a href="/" class="btn btn-outline-secondary btn-sm me-2" target="_blank">
-                        <i class="bi bi-shop"></i> Lihat Toko
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}" class="d-inline">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm">
-                            <i class="bi bi-box-arrow-right me-1"></i> Logout
-                        </button>
-                    </form>
-                </div>
-            </header>
+    </aside>
 
-            {{-- Flash Messages --}}
+    {{-- ===== MAIN ===== --}}
+    <div class="flex-grow-1">
+
+        <header class="topbar">
             <div class="px-4 pt-3">
                 @include('partials.flash-messages')
             </div>
 
-            {{-- Page Content --}}
-            <main class="p-4">
-                @yield('content')
-            </main>
-        </div>
-    </div>
+            <h5 class="mb-0 fw-semibold">@yield('page-title', 'Dashboard')</h5>
+            <div class="d-flex gap-2">
+                <a href="/" target="_blank" class="btn btn-outline-secondary btn-sm">
+                    <i class="bi bi-shop"></i>
+                </a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </button>
+                </form>
+            </div>
+        </header>
 
-    @stack('scripts')
+        <main class="p-4">
+            @yield('content')
+        </main>
+
+    </div>
+</div>
+
 </body>
 </html>

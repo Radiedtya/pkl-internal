@@ -56,16 +56,17 @@ class OrderController extends Controller
                     'order_id' => $order->order_number,
                     'gross_amount' => (int) $order->total_amount,
                 ],
+
                 'customer_details' => [
                     'first_name' => auth()->user()->name,
                     'email' => auth()->user()->email,
                     'phone' => $order->shipping_phone,
                 ],
-                // TAMBAHKAN INI:
+                
                 'callbacks' => [
-                'finish' => route('orders.success', $order->id),
-                'unfinish' => route('orders.show', $order->id),
-                'error' => route('orders.show', $order->id),
+                    'finish' => route('orders.success', $order->id),
+                    'unfinish' => route('orders.show', $order->id),
+                    'error' => route('orders.show', $order->id),
                 ],
             ];
 

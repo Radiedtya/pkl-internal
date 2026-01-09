@@ -10,21 +10,31 @@ class Order extends Model
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;
 
+    // Table name
     protected $table = 'orders';
+    // Primary key
     protected $primaryKey = 'id';
 
+    // Mass assignable attributes
     protected $fillable = [
         'user_id',
         'order_number',
-        'total_amount',
-        'shopping_cost',
         'status',
+        'payment_status',
         'shipping_name',
-        'shipping_phone',
         'shipping_address',
-        'payment_method',
-        'notes',
+        'shipping_phone',
+        'total_amount',
+        'shipping_cost',
+        'snap_token',
     ];
+    // Cast ke tipe data yang sesuai
+    protected $casts = [
+        'subtotal' => 'integer',
+        'shipping_cost' => 'integer',
+        'total_amount' => 'integer',
+    ];
+    // ==================== RELATIONSHIPS ====================
 
     // Relasi ke User
     public function user()

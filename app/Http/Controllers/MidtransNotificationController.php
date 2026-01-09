@@ -249,11 +249,13 @@ class MidtransNotificationController extends Controller
         // TODO: Logic tambahan untuk refund
     }
 
-    private function setSuccess(Order $order): void
+    private function setSuccess(Order $order)
     {
-        // Placeholder for setting success logic
-        $order->update(['status' => 'paid']);
-
+        $order->update([
+            'status'         => 'processing',
+            'payment_status' => 'paid',
+            'payment_method' => 'midtrans',
+        ]);
         // Fire & Forget
         event(new OrderPaidEvent($order));
     }

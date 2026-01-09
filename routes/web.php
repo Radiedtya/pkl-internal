@@ -15,7 +15,8 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\WishlistController;
-
+use App\Http\Controllers\PaymentCallbackController;
+use App\Http\Controllers\MidtransNotificationController;
 
 
 // Admin Controllers
@@ -24,21 +25,17 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\MidtransNotificationController;
+
+
 use App\Http\Controllers\Admin\OrderController as AdminOrderController;
-
-
 use App\Http\Controllers\Admin\ReportController as AdminReportController;
 use App\Http\Controllers\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
-
+// end Admin Controllers
 
 // ================================================
 // ROUTE PUBLIK (Bisa diakses siapa saja)
 // ================================================
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 // home page
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // ↑ Halaman utama, tidak perlu login
@@ -95,7 +92,6 @@ Route::middleware('auth')->group(function () {
 // Karena diakses oleh SERVER Midtrans, bukan browser user
 // ============================================================
 Route::post('midtrans/notification', [MidtransNotificationController::class, 'handle'])->name('midtrans.notification');
-Route::post('/midtrans/callback', [PaymentCallbackController::class, 'handle']);
 
 
 
