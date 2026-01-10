@@ -1,6 +1,6 @@
 @props(['product'])
 
-<div class="card h-100 border-0 shadow-sm product-card">
+<div class="card h-100 border border-primary border-2 shadow-sm product-card">
     {{-- Gambar --}}
     <div class="position-relative overflow-hidden bg-light" style="padding-top: 100%;">
         <img src="{{ $product->image_url }}"

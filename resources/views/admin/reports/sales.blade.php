@@ -44,15 +44,15 @@
 <div class="card shadow-sm mb-4 filter-card border-0">
     <div class="card-body">
         <form method="GET" class="row g-3 align-items-end">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label class="form-label">Dari Tanggal</label>
                 <input type="date" name="date_from" value="{{ $dateFrom }}" class="form-control">
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <label class="form-label">Sampai Tanggal</label>
                 <input type="date" name="date_to" value="{{ $dateTo }}" class="form-control">
             </div>
-            <div class="col-md-4 d-flex gap-2">
+            <div class="col-md-12 d-flex gap-2 justify-content-between">
                 <button type="submit" class="btn btn-primary px-4">
                     <i class="bi bi-filter-square"></i> Terapkan Filter
                 </button>

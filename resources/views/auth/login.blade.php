@@ -223,7 +223,7 @@
                   </div>
                 </div>
                 <div class="mb-3">
-                  <button class="btn btn-success d-grid w-100" type="submit">Masuk</button>
+                  <button class="btn btn-primary d-grid w-100" type="submit">Masuk</button>
                 </div>
 
                 <div class="position-relative my-4">

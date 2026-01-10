@@ -119,14 +119,14 @@
                   </div>
                 </div>
 
-                <button class="btn btn-success d-grid w-100">Daftar Sekarang</button>
+                <button class="btn btn-primary d-grid w-100">Daftar Sekarang</button>
 
                 <div class="position-relative my-4">
                   <hr />
                   <span
                     class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted"
                   >
-                    atau daftar dengan
+                    atau
                   </span>
                 </div>
 

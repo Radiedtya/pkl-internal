@@ -3,7 +3,7 @@
      FUNGSI: Komponen kartu produk yang reusable
      ================================================ --}}
 
-<div class="card product-card h-100 border-0">
+<div class="card product-card h-100 border border-primary border-2">
     {{-- Product Image --}}
     <div class="product-image position-relative">
         <a href="{{ route('catalog.show', $product->slug) }}">
