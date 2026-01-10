@@ -23,6 +23,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        // Ambil semua data produk
+        $allProducts = Product::latest()->get();
+
         // ================================================
         // AMBIL DATA KATEGORI
         // - Hanya yang aktif
@@ -72,7 +76,8 @@ class HomeController extends Controller
         return view('home', compact(
             'categories',
             'featuredProducts',
-            'latestProducts'
+            'latestProducts',
+            'allProducts'
         ));
     }
 }

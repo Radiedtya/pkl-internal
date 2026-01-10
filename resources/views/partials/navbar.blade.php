@@ -57,7 +57,7 @@
                     <li class="nav-item">
                         <a class="nav-link position-relative icon-btn"
                            href="{{ route('wishlist.index') }}">
-                            <i class="bi bi-heart"></i>
+                            <i class="bi bi-bag-heart"></i>
                             @if(auth()->user()->wishlists()->count() > 0)
                                 <span class="badge-dot bg-danger"></span>
                             @endif
@@ -68,7 +68,7 @@
                     <li class="nav-item">
                         <a class="nav-link position-relative icon-btn"
                            href="{{ route('cart.index') }}">
-                            <i class="bi bi-cart3"></i>
+                            <i class="bi bi-cart-check"></i>
                             @php
                                 $cartCount = auth()->user()->cart?->items()->count() ?? 0;
                             @endphp
@@ -118,7 +118,7 @@
                                 <li>
                                     <a class="dropdown-item text-primary"
                                        href="{{ route('admin.dashboard') }}">
-                                        <i class="bi bi-speedometer2 me-2"></i> Admin Panel
+                                        <i class="bi bi-speedometer2 me-2"></i> Dashboard Admin
                                     </a>
                                 </li>
                             @endif

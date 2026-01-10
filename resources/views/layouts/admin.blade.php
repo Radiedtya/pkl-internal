@@ -146,7 +146,7 @@ body {
 
             <a href="{{ route('admin.products.index') }}"
                class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
-                <i class="bi bi-box"></i> Produk
+                <i class="bi bi-boxes"></i> Produk
             </a>
 
             <a href="{{ route('admin.categories.index') }}"
@@ -218,12 +218,12 @@ body {
                     <li><hr class="dropdown-divider"></li>
 
                     {{-- PROFILE --}}
-                    <li>
+                    {{-- <li>
                         <a class="dropdown-item d-flex align-items-center gap-2"
                         href="{{ route('profile.edit') }}">
                             <i class="bi bi-person"></i> Profile
                         </a>
-                    </li>
+                    </li> --}}
 
                     {{-- LIHAT TOKO --}}
                     <li>
@@ -242,7 +242,7 @@ body {
                             @csrf
                             <button type="submit"
                                     class="dropdown-item text-danger d-flex align-items-center gap-2">
-                                <i class="bi bi-box-arrow-right"></i> Logout
+                                <i class="bi bi-box-arrow-right"></i> Keluar
                             </button>
                         </form>
                     </li>

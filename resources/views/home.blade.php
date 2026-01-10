@@ -14,46 +14,8 @@
     <div class="container py-5">
         <div class="row align-items-center gy-5">
 
-            {{-- IMAGE SLIDER --}}
-            <div class="col-lg-12 d-none d-lg-block">
-                <div id="heroCarousel"
-                     class="carousel slide carousel-fade"
-                     data-bs-ride="carousel"
-                     data-bs-interval="3500">
-
-                    <div class="carousel-inner rounded-4 shadow-lg overflow-hidden">
-
-                        <div class="carousel-item active">
-                            <img src="{{ asset('assets/hero-3.png') }}"
-                                 class="d-block w-100 hero-img"
-                                 alt="Promo 1">
-                        </div>
-
-                        <div class="carousel-item">
-                            <img src="{{ asset('assets/hero-2.png') }}"
-                                 class="d-block w-100 hero-img"
-                                 alt="Promo 2">
-                        </div>
-
-                        <div class="carousel-item">
-                            <img src="{{ asset('assets/hero-1.png') }}"
-                                 class="d-block w-100 hero-img"
-                                 alt="Promo 3">
-                        </div>
-
-                    </div>
-
-                    <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
-                    </div>
-
-                </div>
-            </div>
-
             {{-- TEXT --}}
-            <div class="col-lg-12">
+            <div class="col-lg-6 order-2 order-lg-1">
 
                 <span class="badge rounded-pill bg-warning text-dark mb-4 px-4 py-2 shadow-sm">
                     🔥 Promo Spesial Hari Ini
@@ -70,13 +32,10 @@
                 </p>
 
                 <div class="d-flex gap-3 flex-wrap">
-                    <a href="{{ route('catalog.index') }}"
-                       class="btn btn-primary btn-lg px-4 shadow-sm">
+                    <a href="{{ route('catalog.index') }}" class="btn btn-primary btn-lg px-4 shadow-sm">
                         <i class="bi bi-bag-check me-2"></i> Mulai Belanja
                     </a>
-
-                    <a href="#promo"
-                       class="btn btn-outline-secondary btn-lg px-4">
+                    <a href="{{ route('catalog.index') }}" class="btn btn-outline-secondary btn-lg px-4">
                         <i class="bi bi-lightning-charge me-2"></i> Lihat Promo
                     </a>
                 </div>
@@ -97,6 +56,34 @@
                     </div>
                 </div>
 
+            </div>
+
+            {{-- IMAGE SLIDER --}}
+            <div class="col-lg-6 order-1 order-lg-2 d-none d-lg-block">
+                <div id="heroCarousel"
+                     class="carousel slide carousel-fade"
+                     data-bs-ride="carousel"
+                     data-bs-interval="3500">
+
+                    <div class="carousel-inner rounded-4 shadow-lg overflow-hidden">
+                        <div class="carousel-item active">
+                            <img src="{{ asset('assets/hero-3.png') }}" class="d-block w-100 hero-img">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ asset('assets/hero-2.png') }}" class="d-block w-100 hero-img">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="{{ asset('assets/hero-1.png') }}" class="d-block w-100 hero-img">
+                        </div>
+                    </div>
+
+                    <div class="carousel-indicators">
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+                    </div>
+
+                </div>
             </div>
 
         </div>
@@ -141,28 +128,41 @@
 </section>
 
 {{-- ================= PRODUK ================= --}}
-<section class="py-5">
+<section class="py-5 bg-light">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="mb-0">Produk Unggulan</h2>
-            <a href="{{ route('catalog.index') }}" class="btn btn-outline-primary">
-                Lihat Semua <i class="bi bi-arrow-right"></i>
-            </a>
+
+        <div class="d-flex justify-content-center align-items-center mb-4">
+            <div>
+                <h2 class="fw-bold mb-1">Semua Produk</h2>
+
+                <p class="text-muted mb-0">Pilihan produk terbaik untuk kamu</p>
+                <a href="{{ route('catalog.index') }}" class="btn btn-primary my-3 d-grid">
+                    Lihat Semua <i class="bi bi-arrow-bar-down"></i>
+                </a>
+            </div>
+
         </div>
 
         <div class="row g-4">
-            @foreach($featuredProducts as $product)
+            @foreach($allProducts as $product)
                 <div class="col-6 col-md-4 col-lg-3">
                     @include('partials.product-card', ['product' => $product])
                 </div>
             @endforeach
         </div>
+
     </div>
 </section>
 
 {{-- ================= PROMO ================= --}}
 <section id="promo" class="promo-section py-5">
     <div class="container">
+
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">Promo Spesial</h2>
+            <p class="text-muted">Penawaran terbatas yang sayang untuk dilewatkan</p>
+        </div>
+
         <div class="row g-4">
 
             <div class="col-md-6">
@@ -170,8 +170,11 @@
                     <div class="promo-content">
                         <span class="promo-badge">🔥 Flash Sale</span>
                         <h3>Diskon Besar Hari Ini</h3>
-                        <p>Potongan hingga <strong>50%</strong> produk pilihan.</p>
-                        <a href="#" class="btn btn-dark">Lihat Promo</a>
+                        <p>
+                            Nikmati potongan hingga <strong>50%</strong> untuk produk pilihan terbaik.
+                            Harga normal tidak akan kembali lagi!
+                        </p>
+                        <p class="fw-bold mb-0">🚀 Buruan checkout sebelum kehabisan!</p>
                     </div>
                 </div>
             </div>
@@ -180,9 +183,12 @@
                 <div class="promo-card promo-member">
                     <div class="promo-content">
                         <span class="promo-badge">🎁 Member Baru</span>
-                        <h3>Bonus Spesial</h3>
-                        <p>Voucher <strong>Rp 50.000</strong> untuk pembelian pertama.</p>
-                        <a href="{{ route('register') }}" class="btn btn-light">
+                        <h3>Bonus Spesial Menanti!</h3>
+                        <p>
+                            Voucher <strong>Rp 50.000</strong> langsung bisa dipakai
+                            untuk pembelian pertama kamu.
+                        </p>
+                        <a href="{{ route('register') }}" class="btn btn-light mt-2">
                             Daftar Sekarang
                         </a>
                     </div>
@@ -198,7 +204,7 @@
 {{-- ================= STYLE ================= --}}
 <style>
 .hero-img {
-    height: 440px;
+    height: 380px;
     object-fit: cover;
 }
 
@@ -256,6 +262,12 @@
     color: #fff;
     min-height: 220px;
     box-shadow: 0 15px 40px rgba(0,0,0,.12);
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+
+.promo-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 45px rgba(0,0,0,.18);
 }
 
 .promo-sale {

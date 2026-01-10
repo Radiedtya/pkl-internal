@@ -1,4 +1,7 @@
-{{-- resources/views/orders/index.blade.php --}}
+{{-- ================================================
+     FILE: resources/views/orders/index.blade.php
+     FUNGSI: Daftar pesanan user + gambar produk
+     ================================================ --}}
 
 @extends('layouts.app')
 
@@ -9,121 +12,146 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
 
-            {{-- Header Halaman --}}
+            {{-- HEADER --}}
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <div>
-                    <h1 class="h3 fw-bold mb-1">Pesanan Saya</h1>
+                    <h1 class="fw-bold mb-1">Pesanan Saya</h1>
                     <p class="text-muted mb-0">Pantau status dan riwayat belanja Anda</p>
                 </div>
-                <i class="bi bi-bag-check fs-1 text-primary opacity-25"></i>
+                <div class="bg-primary bg-opacity-10 p-3 rounded-circle">
+                    <i class="bi bi-bag-check fs-3 text-primary"></i>
+                </div>
             </div>
 
+            {{-- EMPTY --}}
             @if($orders->isEmpty())
-                {{-- Tampilan Jika Kosong --}}
-                <div class="card shadow-sm border-0 py-5">
-                    <div class="card-body text-center">
-                        <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty" style="width: 120px;" class="mb-4 opacity-50">
-                        <h5 class="fw-bold">Belum Ada Pesanan</h5>
-                        <p class="text-muted">Sepertinya Anda belum melakukan pemesanan apapun.</p>
-                        <a href="{{ url('/') }}" class="btn btn-primary px-4 mt-2">Mulai Belanja</a>
-                    </div>
+                <div class="card border-0 shadow-lg py-5 text-center rounded-4">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png"
+                         width="120"
+                         class="mb-4 opacity-50">
+                    <h5 class="fw-bold">Belum Ada Pesanan</h5>
+                    <p class="text-muted mb-4">Anda belum melakukan pemesanan.</p>
+                    <a href="{{ route('home') }}" class="btn btn-primary rounded-pill px-4">
+                        Mulai Belanja
+                    </a>
                 </div>
             @else
-                {{-- List Pesanan --}}
+
                 @foreach($orders as $order)
-                    <div class="card shadow-sm border-0 mb-3 overflow-hidden">
-                        <div class="card-body p-0">
-                            <div class="p-4">
-                                <div class="row align-items-center">
-                                    {{-- Info Order --}}
-                                    <div class="col-md-4 mb-3 mb-md-0">
-                                        <div class="d-flex align-items-center">
-                                            <div class="bg-light p-3 rounded-3 me-3">
-                                                <i class="bi bi-receipt text-primary fs-4"></i>
-                                            </div>
-                                            <div>
-                                                <h6 class="fw-bold mb-1">#{{ $order->order_number }}</h6>
-                                                <small class="text-muted">{{ $order->created_at->format('d M Y') }}</small>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="card border-0 shadow-sm rounded-4 mb-3 overflow-hidden order-card">
+                    <div class="card-body p-4">
 
-                                    {{-- Total Harga --}}
-                                    <div class="col-6 col-md-2">
-                                        <small class="text-muted d-block">Total Tagihan</small>
-                                        <span class="fw-bold text-dark">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</span>
-                                    </div>
+                        <div class="row align-items-center g-3">
 
-                                    {{-- Status Badge --}}
-                                    <div class="col-6 col-md-2">
-                                        @php
-                                            $statusClasses = [
-                                                'pending' => 'bg-warning text-dark',
-                                                'processing' => 'bg-info text-white',
-                                                'shipped' => 'bg-primary text-white',
-                                                'delivered' => 'bg-success text-white',
-                                                'cancelled' => 'bg-danger text-white',
-                                            ];
-                                            $badgeClass = $statusClasses[$order->status] ?? 'bg-secondary text-white';
-                                        @endphp
-                                        <small class="text-muted d-block mb-1">Status</small>
-                                        <span class="badge rounded-pill px-3 py-2 {{ $badgeClass }}">
-                                            {{ ucfirst($order->status) }}
-                                        </span>
-                                    </div>
+                            {{-- PRODUK IMAGE --}}
+                            <div class="col-md-2 col-4">
+                                @php
+                                    $item = $order->items->first();
+                                    $image = $item?->product?->image_url;
+                                @endphp
 
-                                    {{-- Status Payment Badge --}}
-                                    <div class="col-6 col-md-2 mt-3 mt-md-0">
-                                        @php
-                                            $paymentStatusClasses = [
-                                                'paid' => 'bg-success text-white',
-                                                'unpaid' => 'bg-danger text-white',
-                                                'pending' => 'bg-warning text-dark',
-                                            ];
-                                            $paymentBadgeClass = $paymentStatusClasses[$order->payment_status] ?? 'bg-secondary text-white';
-                                        @endphp
-                                        <small class="text-muted d-block mb-1">Pembayaran</small>
-                                        <span class="badge rounded-pill px-3 py-2 {{ $paymentBadgeClass }}">
-                                            {{ ucfirst($order->payment_status) }}
-                                        </span>
-                                    </div>
-
-                                    {{-- Tombol Aksi --}}
-                                    <div class="col-md-2 text-md-end mt-3 mt-md-0">
-                                        <a href="{{ route('orders.show', $order) }}" class="btn btn-outline-primary btn-sm rounded-pill px-4">
-                                            Detail
-                                        </a>
-                                    </div>
-
-                                </div>
+                                <img src="{{ $image ?? asset('assets/no-image.png') }}"
+                                     class="rounded-3 border"
+                                     style="width:100%; aspect-ratio:1/1; object-fit:cover;">
                             </div>
 
-                            {{-- Preview Item Terakhir (Opsional) --}}
-                            @if($order->items->count() > 0)
-                            <div class="bg-light px-4 py-2 border-top">
-                                <small class="text-muted">
-                                    <i class="bi bi-box-seam me-1"></i>
-                                    {{ $order->items->first()->product_name }}
+                            {{-- ORDER INFO --}}
+                            <div class="col-md-3 col-8">
+                                <div class="fw-bold mb-1">
+                                    #{{ $order->order_number }}
+                                </div>
+                                <small class="text-muted d-block">
+                                    <i class="bi bi-calendar3"></i>
+                                    {{ $order->created_at->format('d M Y') }}
+                                </small>
+
+                                <small class="text-muted d-block mt-1">
+                                    {{ $item?->product_name }}
                                     @if($order->items->count() > 1)
-                                        <span class="fw-medium">dan {{ $order->items->count() - 1 }} produk lainnya...</span>
+                                        <span class="fw-medium">
+                                            +{{ $order->items->count() - 1 }} produk
+                                        </span>
                                     @endif
                                 </small>
                             </div>
-                            @endif
+
+                            {{-- TOTAL --}}
+                            <div class="col-md-2 col-6">
+                                <small class="text-muted">Total</small>
+                                <div class="fw-bold">
+                                    Rp {{ number_format($order->total_amount,0,',','.') }}
+                                </div>
+                            </div>
+
+                            {{-- STATUS --}}
+                            <div class="col-md-2 col-6">
+                                @php
+                                    $statusMap = [
+                                        'pending' => ['warning','Menunggu'],
+                                        'processing' => ['info','Diproses'],
+                                        'shipped' => ['primary','Dikirim'],
+                                        'delivered' => ['success','Selesai'],
+                                        'cancelled' => ['danger','Dibatalkan'],
+                                    ];
+                                    [$sColor,$sText] = $statusMap[$order->status] ?? ['secondary',$order->status];
+                                @endphp
+                                <small class="text-muted">Status</small><br>
+                                <span class="badge bg-{{ $sColor }} rounded-pill px-3 py-2">
+                                    {{ $sText }}
+                                </span>
+                            </div>
+
+                            {{-- PAYMENT --}}
+                            <div class="col-md-2 col-6 mt-3 mt-md-0">
+                                @php
+                                    $payMap = [
+                                        'paid' => ['success','Lunas'],
+                                        'pending' => ['warning','Pending'],
+                                        'unpaid' => ['danger','Belum Bayar'],
+                                    ];
+                                    [$pColor,$pText] = $payMap[$order->payment_status] ?? ['secondary',$order->payment_status];
+                                @endphp
+                                <small class="text-muted">Pembayaran</small><br>
+                                <span class="badge bg-{{ $pColor }} rounded-pill px-3 py-2">
+                                    {{ $pText }}
+                                </span>
+                            </div>
+
+                            {{-- ACTION --}}
+                            <div class="col-md-1 col-6 text-md-end mt-3 mt-md-0">
+                                <a href="{{ route('orders.show',$order) }}"
+                                   class="btn btn-outline-primary btn-sm rounded-pill px-3">
+                                    Detail
+                                </a>
+                            </div>
+
                         </div>
                     </div>
+                </div>
                 @endforeach
 
-                {{-- Pagination (Jika ada) --}}
-                <div class="mt-4 d-flex justify-content-center">
-                    {{ $orders->links() }}
-                    <a href="{{ url('home') }}" class="btn btn-outline-primary shadow-sm btn-sm border btn-sm rounded-pill px-4">
+                {{-- PAGINATION --}}
+                <div class="d-flex justify-content-between align-items-center mt-4">
+                    <a href="{{ route('home') }}"
+                       class="btn btn-outline-secondary rounded-pill px-4">
                         <i class="bi bi-house-door"></i> Home
                     </a>
+
+                    {{ $orders->links() }}
                 </div>
 
             @endif
         </div>
     </div>
 </div>
+
+<style>
+.order-card {
+    transition: .25s ease;
+}
+.order-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 40px rgba(0,0,0,.08);
+}
+</style>
 @endsection

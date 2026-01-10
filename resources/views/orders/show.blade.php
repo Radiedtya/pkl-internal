@@ -1,6 +1,9 @@
-{{-- resources/views/orders/show.blade.php --}}
+{{-- ================================================
+     FILE: resources/views/orders/show.blade.php
+     FUNGSI: Halaman detail pesanan (Enhanced UI)
+     ================================================ --}}
 
-@extends('layouts.app') {{-- Pastikan layout ini sudah memuat Bootstrap CSS & JS --}}
+@extends('layouts.app')
 
 @section('title', 'Detail Pesanan')
 
@@ -8,87 +11,93 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-lg-10">
-            
-            {{-- Tombol Kembali --}}
+
+            {{-- Back --}}
             <div class="mb-4">
                 <a href="{{ route('orders.index') }}" class="btn btn-outline-secondary btn-sm">
-                    <i class="bi bi-arrow-left"></i> Kembali ke Pesanan Saya
+                    <i class="bi bi-arrow-left"></i> Pesanan Saya
                 </a>
             </div>
 
-            <div class="card shadow-sm border-0">
-                {{-- Header Order --}}
-                <div class="card-header bg-white py-4 border-bottom">
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+
+                {{-- HEADER --}}
+                <div class="card-header bg-white p-4 border-bottom">
+                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
                         <div>
-                            <h1 class="h3 fw-bold mb-1">Order #{{ $order->order_number }}</h1>
-                            <p class="text-muted mb-0">
-                                <i class="bi bi-calendar3"></i> {{ $order->created_at->format('d M Y, H:i') }}
-                            </p>
+                            <h2 class="fw-bold mb-1">Order #{{ $order->order_number }}</h2>
+                            <small class="text-muted">
+                                <i class="bi bi-clock"></i>
+                                {{ $order->created_at->format('d M Y • H:i') }}
+                            </small>
                         </div>
 
-                        {{-- Status Badge --}}
-                        <div class="mt-3 mt-md-0">
-                            @php
-                                $statusClasses = [
-                                    'pending' => 'bg-warning text-dark',
-                                    'processing' => 'bg-info text-white',
-                                    'shipped' => 'bg-primary text-white',
-                                    'delivered' => 'bg-success text-white',
-                                    'cancelled' => 'bg-danger text-white',
-                                ];
-                                $badgeClass = $statusClasses[$order->status] ?? 'bg-secondary text-white';
-                            @endphp
-                            <span class="badge rounded-pill px-4 py-2 fs-6 {{ $badgeClass }}">
-                                {{ ucfirst($order->status) }}
-                            </span>
-                        </div>
+                        {{-- STATUS --}}
+                        @php
+                            $statusMap = [
+                                'pending' => ['warning','Menunggu Pembayaran'],
+                                'processing' => ['info','Diproses'],
+                                'shipped' => ['primary','Dikirim'],
+                                'delivered' => ['success','Selesai'],
+                                'cancelled' => ['danger','Dibatalkan'],
+                            ];
+                            [$color, $label] = $statusMap[$order->status] ?? ['secondary',$order->status];
+                        @endphp
+
+                        <span class="badge bg-{{ $color }} px-4 py-2 rounded-pill fs-6">
+                            {{ $label }}
+                        </span>
                     </div>
                 </div>
 
+                {{-- BODY --}}
                 <div class="card-body p-0">
-                    {{-- Detail Items --}}
+
+                    {{-- ITEMS --}}
                     <div class="p-4 p-md-5">
-                        <h5 class="fw-bold mb-4">Produk yang Dipesan</h5>
+                        <h5 class="fw-bold mb-4">Detail Produk</h5>
+
                         <div class="table-responsive">
                             <table class="table align-middle">
                                 <thead class="table-light">
                                     <tr>
-                                        <th scope="col" class="py-3">Produk</th>
-                                        <th scope="col" class="text-center py-3">Qty</th>
-                                        <th scope="col" class="text-end py-3">Harga</th>
-                                        <th scope="col" class="text-end py-3">Subtotal</th>
+                                        <th>Produk</th>
+                                        <th class="text-center">Qty</th>
+                                        <th class="text-end">Harga</th>
+                                        <th class="text-end">Subtotal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($order->items as $item)
                                     <tr>
-                                        <td class="py-3">
-                                            <span class="fw-medium text-dark">{{ $item->product_name }}</span>
+                                        <td class="fw-medium">{{ $item->product_name }}</td>
+                                        <td class="text-center">{{ $item->quantity }}</td>
+                                        <td class="text-end text-muted">
+                                            Rp {{ number_format($item->price,0,',','.') }}
                                         </td>
-                                        <td class="text-center py-3">{{ $item->quantity }}</td>
-                                        <td class="text-end py-3 text-muted">
-                                            Rp {{ number_format($item->price, 0, ',', '.') }}
-                                        </td>
-                                        <td class="text-end py-3 fw-bold">
-                                            Rp {{ number_format($item->subtotal, 0, ',', '.') }}
+                                        <td class="text-end fw-semibold">
+                                            Rp {{ number_format($item->subtotal,0,',','.') }}
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
-                                <tfoot class="border-top-0">
+                                <tfoot>
                                     @if($order->shipping_cost > 0)
                                     <tr>
-                                        <td colspan="3" class="text-end pt-4 border-0">Ongkos Kirim:</td>
-                                        <td class="text-end pt-4 border-0">
-                                            Rp {{ number_format($order->shipping_cost, 0, ',', '.') }}
+                                        <td colspan="3" class="text-end border-0 pt-4">
+                                            Ongkos Kirim
+                                        </td>
+                                        <td class="text-end border-0 pt-4">
+                                            Rp {{ number_format($order->shipping_cost,0,',','.') }}
                                         </td>
                                     </tr>
                                     @endif
                                     <tr>
-                                        <td colspan="3" class="text-end pt-2 border-0 fw-bold fs-5">TOTAL BAYAR:</td>
-                                        <td class="text-end pt-2 border-0 fw-bold fs-5 text-primary">
-                                            Rp {{ number_format($order->total_amount, 0, ',', '.') }}
+                                        <td colspan="3" class="text-end border-0 fw-bold fs-5">
+                                            TOTAL
+                                        </td>
+                                        <td class="text-end border-0 fw-bold fs-5 text-primary">
+                                            Rp {{ number_format($order->total_amount,0,',','.') }}
                                         </td>
                                     </tr>
                                 </tfoot>
@@ -96,26 +105,34 @@
                         </div>
                     </div>
 
-                    {{-- Alamat Pengiriman --}}
-                    <div class="p-4 p-md-5 bg-light border-top border-bottom">
+                    {{-- SHIPPING --}}
+                    <div class="bg-light p-4 p-md-5 border-top">
                         <h5 class="fw-bold mb-3">Alamat Pengiriman</h5>
-                        <div class="card border-0 shadow-none bg-transparent">
-                            <div class="card-body p-0">
+
+                        <div class="card border-0 shadow-sm rounded-3">
+                            <div class="card-body">
                                 <p class="fw-bold mb-1">{{ $order->shipping_name }}</p>
-                                <p class="text-muted mb-1"><i class="bi bi-telephone"></i> {{ $order->shipping_phone }}</p>
-                                <p class="text-muted mb-0"><i class="bi bi-geo-alt"></i> {{ $order->shipping_address }}</p>
+                                <p class="mb-1 text-muted">
+                                    <i class="bi bi-telephone"></i>
+                                    {{ $order->shipping_phone }}
+                                </p>
+                                <p class="mb-0 text-muted">
+                                    <i class="bi bi-geo-alt"></i>
+                                    {{ $order->shipping_address }}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {{-- Tombol Bayar (hanya tampil jika pending) --}}
+                {{-- PAYMENT --}}
                 @if(isset($snapToken) && $order->status === 'pending')
-                <div class="card-footer bg-white py-5 text-center">
+                <div class="card-footer bg-white text-center py-5">
                     <p class="text-muted mb-4">
-                        Selesaikan pembayaran Anda sebelum batas waktu berakhir.
+                        Silakan selesaikan pembayaran untuk melanjutkan pesanan Anda.
                     </p>
-                    <button id="pay-button" class="btn btn-primary btn-lg px-5 py-3 shadow-sm rounded-3 fw-bold">
+                    <button id="pay-button"
+                            class="btn btn-primary btn-lg px-5 py-3 rounded-3 fw-bold shadow">
                         💳 Bayar Sekarang
                     </button>
                 </div>
@@ -125,41 +142,39 @@
     </div>
 </div>
 
+{{-- MIDTRANS --}}
 @if(isset($snapToken))
-    @push('scripts')
-        {{-- Load Snap JS dari Midtrans --}}
-        <script src="{{ config('midtrans.snap_url') }}" data-client-key="{{ config('midtrans.client_key') }}"></script>
+@push('scripts')
+<script src="{{ config('midtrans.snap_url') }}"
+        data-client-key="{{ config('midtrans.client_key') }}"></script>
 
-        <script type="text/javascript">
-            document.addEventListener('DOMContentLoaded', function() {
-                const payButton = document.getElementById('pay-button');
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.getElementById('pay-button');
+    if (!btn) return;
 
-                if (payButton) {
-                    payButton.addEventListener('click', function() {
-                        payButton.disabled = true;
-                        payButton.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Memproses...';
+    btn.addEventListener('click', () => {
+        btn.disabled = true;
+        btn.innerHTML = `
+            <span class="spinner-border spinner-border-sm"></span>
+            Memproses...
+        `;
 
-                        window.snap.pay('{{ $snapToken }}', {
-                            onSuccess: function(result) {
-                                window.location.href = '{{ route("orders.success", $order) }}';
-                            },
-                            onPending: function(result) {
-                                window.location.href = '{{ route("orders.pending", $order) }}';
-                            },
-                            onError: function(result) {
-                                alert('Pembayaran gagal! Silakan coba lagi.');
-                                payButton.disabled = false;
-                                payButton.innerHTML = '💳 Bayar Sekarang';
-                            },
-                            onClose: function() {
-                                payButton.disabled = false;
-                                payButton.innerHTML = '💳 Bayar Sekarang';
-                            }
-                        });
-                    });
-                }
-            });
-        </script>
-    @endpush
+        snap.pay('{{ $snapToken }}', {
+            onSuccess: () => location.href = '{{ route("orders.success",$order) }}',
+            onPending: () => location.href = '{{ route("orders.pending",$order) }}',
+            onError: () => reset(),
+            onClose: () => reset()
+        });
+
+        function reset(){
+            btn.disabled = false;
+            btn.innerHTML = '💳 Bayar Sekarang';
+            alert('Pembayaran belum selesai.');
+        }
+    });
+});
+</script>
+@endpush
 @endif
 @endsection
