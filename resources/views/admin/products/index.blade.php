@@ -209,7 +209,6 @@
                         <div class="col-xl-3 col-lg-2 col-md-6">
                             <div class="d-flex gap-2">
                                 <button class="btn btn-primary flex-fill">
-                                    <i class="bi bi-search me-1"></i>
                                     Terapkan
                                 </button>
                                 <a href="{{ route('admin.products.index') }}"
@@ -288,9 +287,12 @@
 
                             <td>
                                 <div class="action-group">
-                                    <a href="{{ route('admin.products.edit',$product->id) }}"
-                                    class="action-btn action-edit">
+                                    <a href="{{ route('admin.products.edit',$product->id) }}" class="action-btn action-edit">
                                         <i class="bi bi-pen-fill"></i>
+                                    </a>
+
+                                    <a href="{{ route('admin.products.show', $product->id) }}" class="btn btn-outline-primary action-btn" title="Lihat Detail Produk">
+                                        <i class="bi bi-eye-fill"></i>
                                     </a>
 
                                     <form action="{{ route('admin.products.destroy',$product->id) }}"
@@ -319,7 +321,7 @@
 
         {{-- PAGINATION --}}
         <div class="mt-4">
-            {{ $products->links() }}
+            {{ $products->links('pagination::bootstrap-5') }}
         </div>
 
     </div>

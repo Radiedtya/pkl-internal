@@ -17,7 +17,7 @@
     <meta name="description" content="@yield('meta_description', 'Toko online terpercaya dengan produk berkualitas')">
 
     {{-- Favicon --}}
-    <link rel="icon" href="{{ asset('favicon.ico') }}">
+    <link rel="icon" href="{{ asset('assets/skolafit-removebg-preview.png') }}">
 
     {{-- Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">

@@ -26,10 +26,7 @@
 
                 {{-- SOCIAL --}}
                 <div class="d-flex gap-3 mt-4">
-                    <a href="#" class="footer-social"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="footer-social"><i class="bi bi-instagram"></i></a>
-                    <a href="#" class="footer-social"><i class="bi bi-twitter-x"></i></a>
-                    <a href="#" class="footer-social"><i class="bi bi-youtube"></i></a>
+                    <a href="https://instagram.com/rdiettyaa" class="footer-social"><i class="bi bi-instagram"></i></a>
                 </div>
             </div>
 

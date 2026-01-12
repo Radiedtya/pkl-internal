@@ -124,7 +124,7 @@
 
             {{-- PAGINATION --}}
             <div class="mt-4 d-flex justify-content-center animate fade-up">
-                {{ $products->links() }}
+                {{ $products->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>

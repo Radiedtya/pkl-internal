@@ -52,7 +52,7 @@
                 <li class="nav-item text-center">
                     <a class="nav-link fw-medium nav-underline"
                        href="{{ route('home') }}">
-                        <i class="bi bi-house-door me-1"></i>
+                        <i class="bi bi-house-door-fill me-1"></i>
                         Beranda
                     </a>
                 </li>
@@ -61,7 +61,7 @@
                 <li class="nav-item text-center">
                     <a class="nav-link fw-medium nav-underline"
                        href="{{ route('catalog.index') }}">
-                        <i class="bi bi-grid me-1"></i>
+                        <i class="bi bi-grid-fill me-1"></i>
                         Katalog
                     </a>
                 </li>
@@ -71,7 +71,7 @@
                     <li class="nav-item text-center">
                         <a class="nav-link fw-medium nav-underline"
                            href="{{ route('wishlist.index') }}">
-                            <i class="bi bi-heart me-1"></i>
+                            <i class="bi bi-heart-fill me-1"></i>
                             Wishlist
                             @if(auth()->user()->wishlists()->count() > 0)
                                 <span class="badge-dot bg-danger"></span>
@@ -83,7 +83,7 @@
                     <li class="nav-item text-center">
                         <a class="nav-link fw-medium nav-underline"
                            href="{{ route('cart.index') }}">
-                            <i class="bi bi-cart3 me-1"></i>
+                            <i class="bi bi-cart-fill me-1"></i>
                             Keranjang
                             @php
                                 $cartCount = auth()->user()->cart?->items()->count() ?? 0;
@@ -134,7 +134,7 @@
                                 <li>
                                     <a class="dropdown-item rounded-3 text-primary"
                                        href="{{ route('admin.dashboard') }}">
-                                        <i class="bi bi-speedometer2 me-2"></i>
+                                        <i class="bi bi-house-check me-2"></i>
                                         Dashboard
                                     </a>
                                 </li>

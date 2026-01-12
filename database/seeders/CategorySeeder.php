@@ -12,27 +12,27 @@ class CategorySeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Sepatu',
-                'slug' => 'sepatu',
-                'description' => 'Berbagai jenis sepatu untuk pria dan wanita',
+                'name' => 'Sepatu Futsal',
+                'slug' => 'sepatu-futsal',
+                'description' => 'Berbagai jenis sepatu futsal untuk performa terbaik di lapangan',
                 'is_active' => true,
             ],
             [
-                'name' => 'Jersey Bola Pria',
-                'slug' => 'jersey-bola-pria',
+                'name' => 'Sepatu Bola',
+                'slug' => 'sepatu-bola',
+                'description' => 'Sepatu bola untuk berbagai jenis permukaan lapangan',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Sepatu Lari',
+                'slug' => 'sepatu-lari',
+                'description' => 'Sepatu lari ringan dan nyaman untuk berbagai jarak',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Jersey',
+                'slug' => 'jersey',
                 'description' => 'Jersey bola pria untuk berbagai tim dan liga',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Jersey Bola Wanita',
-                'slug' => 'jersey-bola-wanita',
-                'description' => 'Jersey bola wanita untuk berbagai tim dan liga',
-                'is_active' => true,
-            ],
-            [
-                'name' => 'Aksesoris Olahraga',
-                'slug' => 'aksesoris-olahraga',
-                'description' => 'Aksesoris olahraga seperti tas, botol minum, dan lainnya',
                 'is_active' => true,
             ],
         ];
