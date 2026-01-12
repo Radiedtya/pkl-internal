@@ -73,7 +73,7 @@
 <div class="container py-4">
 
     <h2 class="mb-4 fw-bold">
-        <i class="bi bi-basket3 me-2"></i>Keranjang Belanja
+        <i class="bi bi-cart-fill me-2"></i>Keranjang Belanja
     </h2>
 
     @if($cart && $cart->items->count())
@@ -165,7 +165,7 @@
                                         @method('DELETE')
                                         <button class="btn btn-sm btn-outline-danger"
                                                 onclick="return confirm('Hapus item ini?')">
-                                            <i class="bi bi-trash"></i>
+                                            Hapus
                                         </button>
                                     </form>
                                 </td>
@@ -230,11 +230,11 @@
 
     {{-- EMPTY CART --}}
     <div class="text-center py-5">
-        <i class="bi bi-basket3 display-1 text-muted"></i>
+        <i class="bi bi-cart-x display-1 text-muted"></i>
         <h4 class="mt-3 fw-bold">Keranjang Kosong</h4>
         <p class="text-muted">Belum ada produk di keranjang kamu</p>
         <a href="{{ route('catalog.index') }}" class="btn btn-primary">
-            <i class="bi bi-bag me-2"></i>Mulai Belanja
+            <i class="bi bi-cart me-2"></i>Mulai Belanja
         </a>
     </div>
 

@@ -126,7 +126,6 @@
                             {{-- CTA --}}
                             <button type="submit"
                                     class="btn btn-primary w-100 mt-4 py-2 fw-semibold">
-                                <i class="bi bi-lock me-1"></i>
                                 Buat Pesanan
                             </button>
 

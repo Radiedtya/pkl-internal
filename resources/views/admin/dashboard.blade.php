@@ -185,7 +185,7 @@
                         <div class="fw-bold">
                             Rp {{ number_format($order->total_amount,0,',','.') }}
                         </div>
-                        <span class="badge {{ $order->payment_status=='paid'?'bg-success':'bg-secondary' }}">
+                        <span class="badge {{ $order->payment_status=='paid'?'bg-success':'bg-warning' }}">
                             {{ strtoupper($order->payment_status) }}
                         </span>
                     </div>

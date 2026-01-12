@@ -73,6 +73,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::patch('/profile/avatar', [ProfileController::class, 'updateAvatar'])->name('profile.avatar.update');
 });
+// Checkout Direct (tanpa menambahkan ke keranjang)
+Route::post('/checkout/direct', [CheckoutController::class, 'direct'])
+    ->middleware('auth')
+    ->name('checkout.direct');
 
 Route::middleware('auth')->group(function () {
     // ... routes lainnya

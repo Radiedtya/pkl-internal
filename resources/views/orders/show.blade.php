@@ -155,7 +155,6 @@
                     </p>
                     <button id="pay-button"
                             class="btn btn-primary btn-lg px-5 py-3 rounded-pill fw-bold shadow">
-                        <i class="bi bi-credit-card-2-back"></i>
                         Bayar Sekarang
                     </button>
                 </div>

@@ -4,6 +4,9 @@
 namespace App\Http\Controllers;
 
 use App\Services\OrderService;
+use App\Models\Product;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class CheckoutController extends Controller
@@ -38,4 +41,38 @@ class CheckoutController extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
+
+    // Method untuk direct checkout sebuah produk tanpa menambah dulu ke keranjang
+    public function direct(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity'   => 'required|integer|min:1'
+        ]);
+
+        $product = Product::findOrFail($request->product_id);
+
+        if ($product->stock < $request->quantity) {
+            return back()->with('error', 'Stok tidak mencukupi');
+        }
+
+        $user = Auth::user();
+
+        //  AMBIL / BUAT CART
+        $cart = $user->cart()->firstOrCreate([]);
+
+        //  HAPUS ITEM LAMA (BIAR DIRECT CHECKOUT)
+        $cart->items()->delete();
+
+        //  MASUKKAN PRODUK KE CART_ITEMS
+        $cart->items()->create([
+            'product_id' => $product->id,
+            'quantity'   => $request->quantity,
+            'price'      => $product->price
+        ]);
+
+        //  LANGSUNG KE CHECKOUT
+        return redirect()->route('checkout.index');
+    }
+
 }

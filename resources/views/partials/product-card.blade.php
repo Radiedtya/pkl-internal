@@ -3,7 +3,7 @@
      FUNGSI: Komponen kartu produk yang reusable
      ================================================ --}}
 
-<div class="card product-card h-100 border border-primary border-2">
+<div class="card product-card h-100">
     {{-- Product Image --}}
     <div class="product-image position-relative">
         <a href="{{ route('catalog.show', $product->slug) }}">
@@ -12,24 +12,20 @@
         </a>
 
         {{-- Discount Badge --}}
-        @if($product->has_discount)
+        {{-- @if($product->has_discount)
             <span class="badge-discount">
                 -{{ $product->discount_percentage }}%
             </span>
-        @endif
+        @endif --}}
 
-        {{-- Wishlist --}}
-        @auth
-            {{-- <button onclick="toggleWishlist({{ $product->id }})"
-                    class="wishlist-btn-{{ $product->id }} btn btn-light btn-sm rounded-circle p-2 transition">
-                <i class="bi {{ Auth::check() && Auth::user()->hasInWishlist($product) ? 'bi-heart-fill text-danger' : 'bi-heart text-secondary' }} fs-5"></i>
-            </button> --}}
+        {{-- Wishlist(Matikan saja) --}}
+        {{-- @auth
             <button type="button"
                     onclick="toggleWishlist({{ $product->id }})"
                     class="btn btn-light btn-sm position-absolute top-0 end-0 m-2 rounded-circle wishslist-btn-{{ $product->id }}">
                 <i class="bi {{ auth()->user()->hasInWishlist($product) ? 'bi-heart-fill text-danger' : 'bi-heart' }}"></i>
             </button>
-        @endauth
+        @endauth --}}
     </div>
 
     {{-- Card Body --}}
@@ -45,8 +41,8 @@
             </a>
         </h6>
 
-        {{-- Price --}}
-        <div class="mt-auto">
+        {{-- Price(Matikan saja) --}}
+        {{-- <div class="mt-auto">
             @if($product->has_discount)
                 <small class="old-price">
                     {{ $product->formatted_original_price }}
@@ -56,7 +52,6 @@
                 {{ $product->formatted_price }}
             </div>
 
-            {{-- Stock --}}
             @if($product->stock <= 5 && $product->stock > 0)
                 <small class="stock-warning">
                     <i class="bi bi-exclamation-triangle"></i>
@@ -67,11 +62,11 @@
                     <i class="bi bi-x-circle"></i> Stok Habis
                 </small>
             @endif
-        </div>
+        </div> --}}
     </div>
 
-    {{-- Footer --}}
-    <div class="card-footer bg-transparent border-0 pt-0">
+    {{-- Footer(Matikan saja) --}}
+    {{-- <div class="card-footer bg-transparent border-0 pt-0">
         <form action="{{ route('cart.add') }}" method="POST">
             @csrf
             <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -82,7 +77,7 @@
                 {{ $product->stock == 0 ? 'Stok Habis' : 'Tambah Keranjang' }}
             </button>
         </form>
-    </div>
+    </div> --}}
 </div>
 
 <style>

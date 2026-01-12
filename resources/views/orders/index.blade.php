@@ -30,10 +30,10 @@
 
                     @php
                         $statuses = [
-                            null => ['Semua','secondary','bi-grid'],
-                            'pending' => ['Belum Bayar','warning','bi-hourglass-split'],
-                            'processing' => ['Diproses','info','bi-gear'],
-                            'completed' => ['Selesai','success','bi-check-circle'],
+                            null => ['SEMUA','secondary','bi-grid'],
+                            'pending' => ['UNPAID','warning','bi-hourglass-split'],
+                            'processing' => ['PROCESSING','info','bi-gear'],
+                            'completed' => ['COMPLETED','secondary','bi-check-circle'],
                         ];
                     @endphp
 
@@ -53,9 +53,7 @@
 
                 {{-- SEARCH --}}
                 <div class="col-lg-5">
-                    <label class="form-label fw-semibold">
-                        Cari Pesanan
-                    </label>
+                    <label class="form-label fw-semibold">Cari Pesanan</label>
 
                     <form method="GET" class="d-flex gap-2">
                         @if(request('status'))
@@ -68,13 +66,11 @@
                                class="form-control rounded-pill"
                                placeholder="Nama barang...">
 
-                        {{-- CARI --}}
                         <button class="btn btn-primary rounded-pill px-4">
                             <i class="bi bi-search"></i>
                             Cari
                         </button>
 
-                        {{-- RESET --}}
                         @if(request('status') || request('q'))
                             <a href="{{ route('orders.index') }}"
                                class="btn btn-outline-secondary rounded-pill px-4">
@@ -91,7 +87,7 @@
 
     {{-- ORDER LIST --}}
     @forelse($orders as $order)
-    <div class="card border-0 shadow-sm rounded-4 mb-3 order-card">
+    <div class="card border-0 shadow-sm rounded-4 mb-3 order-card animate-card">
         <div class="card-body p-4">
             <div class="row align-items-center g-3">
 
@@ -104,8 +100,9 @@
                 </div>
 
                 {{-- INFO --}}
-                <div class="col-md-4 col-8">
+                <div class="col-md-3 col-8">
                     <div class="fw-bold">
+                        
                         {{ $item?->product?->name }}
                     </div>
                     <small class="text-muted d-block">
@@ -127,24 +124,39 @@
                     </div>
                 </div>
 
-                {{-- STATUS --}}
+                {{-- ORDER STATUS --}}
                 <div class="col-md-2 col-6">
+                    <small class="text-muted">Status Pesanan</small><br>
                     <span class="badge rounded-pill px-3 py-2
                         bg-{{ 
                             $order->status=='pending'?'warning':
-                            ($order->status=='processing'?'info':'success')
+                            ($order->status=='processing'?'info':'secondary')
                         }}">
-                        <i class="bi bi-circle-fill me-1"></i>
                         {{ ucfirst($order->status) }}
                     </span>
                 </div>
 
+                {{-- PAYMENT STATUS --}}
+                <div class="col-md-2 col-6">
+                    <small class="text-muted">Status Pembayaran</small>
+                    @php
+                        $payment = $order->payment_status;
+                        $payColor = $payment=='paid'?'success':($payment=='failed'?'danger':'warning');
+                        $payIcon = $payment=='paid'?'bi-check-circle':($payment=='failed'?'bi-x-circle':'bi-credit-card');
+                    @endphp
+
+                    <span class="badge rounded-pill px-3 py-2 payment-badge bg-{{ $payColor }}">
+                        <i class="bi {{ $payIcon }} me-1"></i>
+                        {{ strtoupper($payment) }}
+                    </span>
+                </div>
+
                 {{-- ACTION --}}
-                <div class="col-md-2 text-md-end">
+                <div class="col-md-1 text-md-end">
                     <a href="{{ route('orders.show',$order) }}"
                        class="btn btn-outline-primary btn-sm rounded-pill px-4">
-                        <i class="bi bi-eye"></i>
-                        Detail
+                       <i class="bi bi-eye"></i>
+                       Lihat
                     </a>
                 </div>
 
@@ -168,12 +180,38 @@
 </div>
 
 <style>
+/* CARD HOVER */
 .order-card{
-    transition:.3s ease;
+    transition:.35s ease;
 }
 .order-card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 16px 40px rgba(0,0,0,.08);
+    transform:translateY(-6px);
+    box-shadow:0 18px 45px rgba(0,0,0,.1);
+}
+
+/* FADE SLIDE ANIMATION */
+.animate-card{
+    animation:fadeUp .6s ease forwards;
+}
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:none;
+    }
+}
+
+/* PAYMENT BADGE PULSE (UNPAID) */
+.payment-badge.bg-warning{
+    animation:pulse 1.6s infinite;
+}
+@keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(255,193,7,.6); }
+    70%{ box-shadow:0 0 0 10px rgba(255,193,7,0); }
+    100%{ box-shadow:0 0 0 0 rgba(255,193,7,0); }
 }
 </style>
 @endsection

@@ -141,12 +141,12 @@ body {
         <nav class="sidebar-nav">
             <a href="{{ route('admin.dashboard') }}"
                class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">
-                <i class="bi bi-speedometer2"></i> Dashboard
+                <i class="bi bi-house-check"></i> Dashboard
             </a>
 
             <a href="{{ route('admin.products.index') }}"
                class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
-                <i class="bi bi-boxes"></i> Produk
+                <i class="bi bi-box"></i> Produk
             </a>
 
             <a href="{{ route('admin.categories.index') }}"
@@ -157,6 +157,11 @@ body {
             <a href="{{ route('admin.orders.index') }}"
                class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : '' }}">
                 <i class="bi bi-receipt"></i> Pesanan
+            </a>
+
+            <a href="{{ route('admin.users.index') }}"
+               class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
+                <i class="bi bi-people"></i> Pengguna
             </a>
 
             <div class="sidebar-section">LAPORAN</div>
@@ -216,14 +221,6 @@ body {
                     </li>
 
                     <li><hr class="dropdown-divider"></li>
-
-                    {{-- PROFILE --}}
-                    {{-- <li>
-                        <a class="dropdown-item d-flex align-items-center gap-2"
-                        href="{{ route('profile.edit') }}">
-                            <i class="bi bi-person"></i> Profile
-                        </a>
-                    </li> --}}
 
                     {{-- LIHAT TOKO --}}
                     <li>

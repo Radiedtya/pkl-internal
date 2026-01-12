@@ -166,48 +166,65 @@
         <div class="page-header d-flex justify-content-between align-items-center mb-4">
             <h1 class="h3 mb-0">Manajemen Produk</h1>
             <a href="{{ route('admin.products.create') }}" class="btn btn-primary">
-                <i class="bi bi-plus-lg me-1"></i> Tambah Produk
+                <i class="bi bi-folder-plus me-1"></i> Tambah Produk
             </a>
         </div>
 
         {{-- FILTER --}}
-        <div class="filter-card mb-4">
-            <div class="card-body">
-                <form method="GET" class="row g-3 align-items-end">
+        <div class="filter-card mb-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body">
 
-                    <div class="col-lg-5 col-md-6">
-                        <label class="form-label fw-semibold">Cari Produk</label>
-                        <input type="text" name="search" class="form-control"
-                            value="{{ request('search') }}"
-                            placeholder="Masukkan nama produk...">
-                    </div>
+                    <form method="GET" class="row g-4 align-items-end">
 
-                    <div class="col-lg-4 col-md-6">
-                        <label class="form-label fw-semibold">Kategori</label>
-                        <select name="category" class="form-select">
-                            <option value="">Semua Kategori</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}"
-                                    {{ request('category') == $category->id ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                        {{-- SEARCH --}}
+                        <div class="col-xl-5 col-lg-6 col-md-12">
+                            <label class="form-label fw-semibold">
+                                Cari Produk
+                            </label>
+                            <input type="text"
+                                name="search"
+                                class="form-control"
+                                value="{{ request('search') }}"
+                                placeholder="Masukkan nama produk...">
+                        </div>
 
-                    <div class="col-lg-3 d-flex gap-2">
-                        <button class="btn btn-primary w-100">
-                            <i class="bi bi-search me-1"></i> Terapkan
-                        </button>
-                        <a href="{{ route('admin.products.index') }}"
-                        class="btn btn-outline-secondary w-100">
-                            Reset
-                        </a>
-                    </div>
+                        {{-- CATEGORY --}}
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <label class="form-label fw-semibold">
+                                Kategori
+                            </label>
+                            <select name="category" class="form-select">
+                                <option value="">Semua Kategori</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ request('category') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
 
-                </form>
+                        {{-- ACTION BUTTON --}}
+                        <div class="col-xl-3 col-lg-2 col-md-6">
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary flex-fill">
+                                    <i class="bi bi-search me-1"></i>
+                                    Terapkan
+                                </button>
+                                <a href="{{ route('admin.products.index') }}"
+                                class="btn btn-outline-secondary flex-fill">
+                                    Reset
+                                </a>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
             </div>
         </div>
+
 
         {{-- TABLE --}}
         <div class="table-wrapper">

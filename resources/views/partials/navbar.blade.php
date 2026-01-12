@@ -1,16 +1,22 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top navbar-main">
-    <div class="container">
+    <div class="container py-2">
 
         {{-- LOGO --}}
-        <a class="navbar-brand d-flex align-items-center gap-2 fw-bold"
-           href="{{ route('home') }}">
-            <img src="{{ asset('assets/skolafit-removebg-preview.png') }}"
-                 alt="Skolafit"
-                 height="52">
+        <a class="navbar-brand d-flex align-items-center gap-3 me-lg-4" href="/">
+            <div class="logo-icon d-flex align-items-center justify-content-center">
+                <i class="bi bi-handbag-fill"></i>
+            </div>
+
+            <div class="logo-text d-flex flex-column lh-sm">
+                <span class="fw-bold fs-5 text-success">SkolaFit</span>
+                <small class="text-muted fw-medium">
+                    Perlengkapan Olahraga SMK
+                </small>
+            </div>
         </a>
 
         {{-- TOGGLER --}}
-        <button class="navbar-toggler border-0"
+        <button class="navbar-toggler border-0 ms-auto"
                 type="button"
                 data-bs-toggle="collapse"
                 data-bs-target="#navbarMain">
@@ -18,11 +24,11 @@
         </button>
 
         {{-- CONTENT --}}
-        <div class="collapse navbar-collapse" id="navbarMain">
+        <div class="collapse navbar-collapse mt-3 mt-lg-0" id="navbarMain">
 
             {{-- SEARCH --}}
             <form class="mx-lg-auto my-3 my-lg-0 w-100"
-                  style="max-width:640px"
+                  style="max-width:380px"
                   action="{{ route('catalog.index') }}"
                   method="GET">
 
@@ -31,7 +37,7 @@
                     <input type="text"
                            name="q"
                            class="form-control search-input"
-                           placeholder="Cari produk, kategori, atau brand…"
+                           placeholder="Cari produk..."
                            value="{{ request('q') }}">
                     <button class="btn btn-primary search-btn">
                         Cari
@@ -40,31 +46,33 @@
             </form>
 
             {{-- RIGHT MENU --}}
-            <ul class="navbar-nav ms-lg-4 align-items-lg-center gap-lg-3 mt-3 mt-lg-0">
+            <ul class="navbar-nav ms-lg-4 align-items-lg-center gap-lg-3 gap-2 mt-3 mt-lg-0">
 
-                {{-- MENU --}}
-                <li class="nav-item">
+                {{-- BERANDA --}}
+                <li class="nav-item text-center">
                     <a class="nav-link fw-medium nav-underline"
                        href="{{ route('home') }}">
-                       Beranda
-                       <i class="bi bi-house text-primary"></i>
+                        <i class="bi bi-house-door me-1"></i>
+                        Beranda
                     </a>
                 </li>
 
-                <li class="nav-item">
+                {{-- KATALOG --}}
+                <li class="nav-item text-center">
                     <a class="nav-link fw-medium nav-underline"
                        href="{{ route('catalog.index') }}">
+                        <i class="bi bi-grid me-1"></i>
                         Katalog
-                        <i class="bi bi-bag"></i>
                     </a>
                 </li>
 
                 @auth
                     {{-- WISHLIST --}}
-                    <li class="nav-item">
-                        <a class="nav-link icon-btn position-relative"
-                           href="{{ route('wishlist.index') }}" title="Wishlist">
-                            <i class="bi bi-bag-heart"></i>
+                    <li class="nav-item text-center">
+                        <a class="nav-link fw-medium nav-underline"
+                           href="{{ route('wishlist.index') }}">
+                            <i class="bi bi-heart me-1"></i>
+                            Wishlist
                             @if(auth()->user()->wishlists()->count() > 0)
                                 <span class="badge-dot bg-danger"></span>
                             @endif
@@ -72,10 +80,11 @@
                     </li>
 
                     {{-- CART --}}
-                    <li class="nav-item">
-                        <a class="nav-link icon-btn position-relative"
-                           href="{{ route('cart.index') }}" title="Keranjang">
-                            <i class="bi bi-basket3"></i>
+                    <li class="nav-item text-center">
+                        <a class="nav-link fw-medium nav-underline"
+                           href="{{ route('cart.index') }}">
+                            <i class="bi bi-cart3 me-1"></i>
+                            Keranjang
                             @php
                                 $cartCount = auth()->user()->cart?->items()->count() ?? 0;
                             @endphp
@@ -87,7 +96,7 @@
 
                     {{-- USER --}}
                     <li class="nav-item dropdown ms-lg-2">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+                        <a class="nav-link dropdown-toggle d-flex align-items-center gap-2 px-2"
                            href="#"
                            data-bs-toggle="dropdown">
                             <img src="{{ auth()->user()->avatar_url }}"
@@ -126,7 +135,7 @@
                                     <a class="dropdown-item rounded-3 text-primary"
                                        href="{{ route('admin.dashboard') }}">
                                         <i class="bi bi-speedometer2 me-2"></i>
-                                        Dashboard Admin
+                                        Dashboard
                                     </a>
                                 </li>
                             @endif
@@ -138,7 +147,7 @@
                                     @csrf
                                     <button class="dropdown-item rounded-3 text-danger">
                                         <i class="bi bi-box-arrow-right me-2"></i>
-                                        Logout
+                                        Keluar
                                     </button>
                                 </form>
                             </li>
@@ -167,70 +176,93 @@
 
 <style>
 /* NAVBAR */
-.navbar-main {
+.navbar-main{
     backdrop-filter: blur(6px);
 }
 
 /* SEARCH */
-.search-box {
-    background: #f8f9fa;
-    border-radius: 999px;
-    padding: 6px 8px;
-    gap: 10px;
+.search-box{
+    background:#f8f9fa;
+    border-radius:999px;
+    padding:6px 10px;
+    gap:10px;
 }
-.search-icon {
-    color: #6c757d;
-    margin-left: 10px;
+.search-icon{
+    color:#6c757d;
+    margin-left:10px;
 }
-.search-input {
-    border: none;
-    background: transparent;
-    outline: none;
+.search-input{
+    border:none;
+    background:transparent;
 }
-.search-input:focus {
-    box-shadow: none;
+.search-input:focus{
+    box-shadow:none;
 }
-.search-btn {
-    border-radius: 999px;
-    padding: 6px 20px;
+.search-btn{
+    border-radius:999px;
+    padding:6px 22px;
 }
 
-/* ICON BUTTON */
-.icon-btn {
-    font-size: 1.25rem;
-    position: relative;
-}
-.badge-dot {
-    position: absolute;
-    top: 6px;
-    right: 4px;
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
+/* BADGE DOT */
+.badge-dot{
+    position:absolute;
+    top:6px;
+    right:-2px;
+    width:9px;
+    height:9px;
+    border-radius:50%;
 }
 
 /* AVATAR */
-.avatar {
-    width: 34px;
-    height: 34px;
-    object-fit: cover;
+.avatar{
+    width:34px;
+    height:34px;
+    object-fit:cover;
 }
 
 /* NAV LINK UNDERLINE */
-.nav-underline {
-    position: relative;
+.nav-underline{
+    position:relative;
+    padding-bottom:4px;
 }
-.nav-underline::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #0d6efd;
-    transition: .3s;
+.nav-underline::after{
+    content:'';
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:0;
+    height:2px;
+    background:#0d6efd;
+    transition:.25s ease;
 }
-.nav-underline:hover::after {
-    width: 100%;
+.nav-underline:hover::after{
+    width:100%;
 }
+
+/* LOGO */
+.logo-icon{
+    width:42px;
+    height:42px;
+    background:linear-gradient(135deg,#198754,#20c997);
+    color:#fff;
+    border-radius:12px;
+    font-size:1.2rem;
+    box-shadow:0 4px 12px rgba(25,135,84,.3);
+    transition:.2s ease;
+}
+.navbar-brand:hover .logo-icon{
+    transform:scale(1.06);
+}
+.logo-text small{
+    font-size:.75rem;
+    letter-spacing:.3px;
+}
+
+/* MOBILE */
+@media(max-width:991px){
+    .navbar-nav .nav-link{
+        padding:.6rem 0;
+    }
+}
+
 </style>

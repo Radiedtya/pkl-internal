@@ -10,14 +10,7 @@
                 <div class="card border-0 shadow-sm filter-card animate fade-left">
 
                     <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
-                        <span>
-                            <i class="bi bi-funnel me-1"></i> Filter Produk
-                        </span>
-                        <button class="btn btn-sm btn-light"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#filterProduk">
-                            <i class="bi bi-x"></i>
-                        </button>
+                        <span>Filter Produk</span>
                     </div>
 
                     <div class="card-body">
@@ -88,7 +81,7 @@
                             class="btn btn-outline-primary btn-sm"
                             data-bs-toggle="collapse"
                             data-bs-target="#filterProduk">
-                        <i class="bi bi-funnel"></i>
+                        Sembunyikan/ Tampilkan Filter
                     </button>
 
                     <h4 class="mb-0 fw-bold">Katalog Produk</h4>
