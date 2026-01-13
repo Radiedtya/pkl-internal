@@ -1,16 +1,58 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container py-5">
+<div class="container py-5 catalog-wrapper">
+
+    {{-- ================= PAGE HEADER ================= --}}
+    <div class="card glass mb-5 animate fade-up mx-auto shadow-lg border-0">
+        <div class="my-4 text-center">
+            <h2 class="fw-bold display-6">Katalog Produk</h2>
+            <p class="text-muted mb-0">
+                Jelajahi berbagai produk menarik yang kami tawarkan.
+            </p>
+        </div>
+    </div>
+
+    {{-- ================= TOP BAR ================= --}}
+    <div class="row mb-3 animate fade-up align-items-center">
+
+        {{-- TOGGLE FILTER --}}
+        <div class="col-12 col-lg-3 mb-2 mb-lg-0">
+            <button id="toggleFilter"
+                    class="btn btn-outline-primary btn-sm w-100"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#filterProduk">
+                Sembunyikan / Tampilkan Filter
+            </button>
+        </div>
+
+        {{-- SORT --}}
+        <div class="col-12 col-lg-9 text-lg-end">
+            <form method="GET" class="d-inline-block">
+                @foreach(request()->except('sort') as $key => $value)
+                    <input type="hidden" name="{{ $key }}" value="{{ $value }}">
+                @endforeach
+
+                <select name="sort"
+                        class="form-select form-select-sm"
+                        onchange="this.form.submit()">
+                    <option value="newest" {{ request('sort')=='newest'?'selected':'' }}>Terbaru</option>
+                    <option value="price_asc" {{ request('sort')=='price_asc'?'selected':'' }}>Harga Terendah</option>
+                    <option value="price_desc" {{ request('sort')=='price_desc'?'selected':'' }}>Harga Tertinggi</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
     <div class="row">
 
-        {{-- ================= SIDEBAR FILTER ================= --}}
+        {{-- ================= FILTER SIDEBAR ================= --}}
         <div class="col-lg-3 mb-4" id="filterCol">
             <div class="collapse show" id="filterProduk">
-                <div class="card border-0 shadow-sm filter-card animate fade-left">
+                <div class="card glass filter-card shadow-lg animate fade-left border-0">
 
-                    <div class="card-header bg-white fw-bold d-flex justify-content-between align-items-center">
-                        <span>Filter Produk</span>
+                    <div class="card-header bg-transparent fw-bold">
+                        Filter Produk
                     </div>
 
                     <div class="card-body">
@@ -24,7 +66,7 @@
                             <div class="mb-4">
                                 <h6 class="fw-bold mb-2">Kategori</h6>
                                 @foreach($categories as $cat)
-                                    <div class="form-check mb-1">
+                                    <div class="form-check mb-2">
                                         <input class="form-check-input"
                                                type="radio"
                                                name="category"
@@ -32,9 +74,9 @@
                                                {{ request('category') == $cat->slug ? 'checked' : '' }}
                                                onchange="this.form.submit()">
                                         <label class="form-check-label">
-                                            {{ $cat->name }}
-                                            <small class="text-muted">
-                                                ({{ $cat->products_count }})
+                                            <span>{{ $cat->name }}</span>
+                                            <small class="badge bg-secondary">
+                                                {{ $cat->products_count }}
                                             </small>
                                         </label>
                                     </div>
@@ -45,23 +87,25 @@
                             <div class="mb-4">
                                 <h6 class="fw-bold mb-2">Rentang Harga</h6>
                                 <div class="d-flex gap-2">
-                                    <input type="number" name="min_price"
+                                    <input type="number"
+                                           name="min_price"
                                            class="form-control form-control-sm"
                                            placeholder="Min"
                                            value="{{ request('min_price') }}">
-                                    <input type="number" name="max_price"
+                                    <input type="number"
+                                           name="max_price"
                                            class="form-control form-control-sm"
                                            placeholder="Max"
                                            value="{{ request('max_price') }}">
                                 </div>
                             </div>
 
-                            <button class="btn btn-primary w-100 btn-sm">
+                            <button class="btn btn-primary btn-sm w-100">
                                 Terapkan Filter
                             </button>
 
                             <a href="{{ route('catalog.index') }}"
-                               class="btn btn-outline-secondary w-100 btn-sm mt-2">
+                               class="btn btn-outline-secondary btn-sm w-100 mt-2">
                                 Reset
                             </a>
                         </form>
@@ -73,44 +117,15 @@
         {{-- ================= PRODUCT GRID ================= --}}
         <div class="col-lg-9" id="productCol">
 
-            {{-- HEADER --}}
-            <div class="d-flex justify-content-between align-items-center mb-4 animate fade-up">
-                <div class="d-flex align-items-center gap-2">
-                    {{-- TOGGLE FILTER (KIRI) --}}
-                    <button id="toggleFilter"
-                            class="btn btn-outline-primary btn-sm"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#filterProduk">
-                        Sembunyikan/ Tampilkan Filter
-                    </button>
-
-                    <h4 class="mb-0 fw-bold">Katalog Produk</h4>
-                </div>
-
-                {{-- SORT --}}
-                <form method="GET">
-                    @foreach(request()->except('sort') as $key => $value)
-                        <input type="hidden" name="{{ $key }}" value="{{ $value }}">
-                    @endforeach
-                    <select name="sort"
-                            class="form-select form-select-sm"
-                            onchange="this.form.submit()">
-                        <option value="newest">Terbaru</option>
-                        <option value="price_asc">Harga Terendah</option>
-                        <option value="price_desc">Harga Tertinggi</option>
-                    </select>
-                </form>
-            </div>
-
-            {{-- GRID --}}
             <div id="productGrid"
                  class="row row-cols-2 row-cols-md-4 row-cols-lg-4 g-4">
+
                 @forelse($products as $product)
                     <div class="col animate fade-up">
                         <x-product-card :product="$product" />
                     </div>
                 @empty
-                    <div class="col-12 text-center py-5 animate zoom-in">
+                    <div class="col-12 text-center py-5 animate zoom-in empty-state">
                         <img src="{{ asset('images/empty-state.svg') }}"
                              width="150"
                              class="mb-3 opacity-50">
@@ -133,13 +148,54 @@
 
 {{-- ================= STYLE ================= --}}
 <style>
+:root{
+    --glass:rgba(255,255,255,.75);
+    --blur:blur(14px);
+}
+
+.catalog-wrapper{
+    background:linear-gradient(180deg,#f8fafc,#eef2f7);
+    border-radius:24px;
+}
+
+.glass{
+    background:var(--glass);
+    backdrop-filter:var(--blur);
+    -webkit-backdrop-filter:var(--blur);
+    border:1px solid rgba(255,255,255,.4);
+}
+
+.card{border-radius:20px}
+
 .filter-card{
-    border-radius:16px;
+    transition:.35s ease;
+}
+.filter-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 40px rgba(0,0,0,.08);
+}
+
+.form-check-label{
+    display:flex;
+    justify-content:space-between;
+    width:100%;
+    cursor:pointer;
+}
+
+.btn{border-radius:12px}
+
+.btn-primary{
+    box-shadow:0 8px 20px rgba(13,110,253,.25);
+}
+
+select.form-select{
+    border-radius:14px;
+    padding:.45rem .75rem;
 }
 
 .animate{
     opacity:0;
-    animation:fadeUp .6s ease forwards;
+    animation:fadeUp .7s cubic-bezier(.4,0,.2,1) forwards;
 }
 
 .fade-up{animation-name:fadeUp}
@@ -147,22 +203,32 @@
 .zoom-in{animation-name:zoomIn}
 
 @keyframes fadeUp{
-    from{opacity:0;transform:translateY(25px)}
+    from{opacity:0;transform:translateY(30px)}
     to{opacity:1;transform:none}
 }
 @keyframes fadeLeft{
-    from{opacity:0;transform:translateX(-25px)}
+    from{opacity:0;transform:translateX(-30px)}
     to{opacity:1;transform:none}
 }
 @keyframes zoomIn{
-    from{opacity:0;transform:scale(.95)}
+    from{opacity:0;transform:scale(.92)}
     to{opacity:1;transform:scale(1)}
+}
+
+.empty-state img{
+    animation:float 3s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
 }
 </style>
 
 {{-- ================= SCRIPT ================= --}}
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+
     const filter = document.getElementById('filterProduk');
     const filterCol = document.getElementById('filterCol');
     const productCol = document.getElementById('productCol');
@@ -185,5 +251,6 @@ document.addEventListener('DOMContentLoaded', function () {
         grid.classList.remove('row-cols-lg-5');
         grid.classList.add('row-cols-lg-4');
     });
+
 });
 </script>

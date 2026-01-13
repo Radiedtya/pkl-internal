@@ -62,7 +62,7 @@
                     <a class="nav-link fw-medium nav-underline"
                        href="{{ route('catalog.index') }}">
                         <i class="bi bi-grid-fill me-1"></i>
-                        Katalog
+                        Produk
                     </a>
                 </li>
 
@@ -123,9 +123,9 @@
                             </li>
 
                             <li>
-                                <a class="dropdown-item rounded-3"
+                                <a class="dropdown-item rounded-3 text-info"
                                    href="{{ route('orders.index') }}">
-                                    <i class="bi bi-bag-check me-2"></i> Pesanan Saya
+                                    <i class="bi bi-clock-history me-2"></i> Riwayat Pesanan
                                 </a>
                             </li>
 

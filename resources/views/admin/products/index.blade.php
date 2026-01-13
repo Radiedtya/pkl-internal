@@ -234,10 +234,11 @@
                             <th>#</th>
                             <th>Produk</th>
                             <th>Kategori</th>
-                            <th>Harga</th>
+                            <th>Harga Awal</th>
+                            <th>Harga Diskon</th>
                             <th>Stok</th>
                             <th>Status</th>
-                            <th class="text-end">Aksi</th>
+                            <th class="text-center">Aksi</th>
                         </tr>
                     </thead>
 
@@ -270,7 +271,14 @@
                             <td>{{ $product->category?->name ?? '-' }}</td>
 
                             <td class="fw-semibold">
-                                Rp {{ number_format($product->price,0,',','.') }}
+                                Rp {{ number_format($product->price ,0,',','.') }}
+                            </td>
+                            <td class="fw-semibold">
+                                @if($product->discount_price)
+                                    Rp {{ number_format($product->discount_price ,0,',','.') }}
+                                @else
+                                    Tidak ada diskon
+                                @endif
                             </td>
 
                             <td>
@@ -287,7 +295,7 @@
 
                             <td>
                                 <div class="action-group">
-                                    <a href="{{ route('admin.products.edit',$product->id) }}" class="action-btn action-edit">
+                                    <a href="{{ route('admin.products.edit',$product->id) }}" class="action-btn action-edit" title="Edit Produk">
                                         <i class="bi bi-pen-fill"></i>
                                     </a>
 
@@ -300,7 +308,7 @@
                                         onsubmit="return confirm('Yakin hapus produk ini?')">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="action-btn action-delete">
+                                        <button class="action-btn action-delete" title="Hapus Produk">
                                             <i class="bi bi-eraser"></i>
                                         </button>
                                     </form>

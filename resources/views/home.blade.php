@@ -180,16 +180,16 @@
         </div>
 
         <div class="row g-4">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="promo-card promo-sale float-anim">
                     <span class="promo-badge">🔥 Flash Sale</span>
                     <h3>Diskon Besar Hari Ini</h3>
                     <p class="text-light">Potongan hingga <strong>50%</strong> untuk produk pilihan.</p>
-                    <p class="fw-bold mb-0 text-light">🚀 Checkout sekarang!</p>
+                    <a href="/checkout" class="btn btn-light fw-bold mb-0">🚀 Checkout sekarang!</a>
                 </div>
             </div>
 
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="promo-card promo-member float-anim delay-2">
                     <span class="promo-badge">🎁 Member Baru</span>
                     <h3>Bonus Menanti</h3>
@@ -198,6 +198,7 @@
                 </div>
             </div>
         </div>
+        
 
     </div>
 </section>

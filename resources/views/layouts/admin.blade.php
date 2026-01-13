@@ -24,10 +24,12 @@ body {
 }
 
 /* ===== SIDEBAR ===== */
+/* ===== SIDEBAR (WHITE VERSION) ===== */
 .sidebar {
     width: 260px;
     min-height: 100vh;
-    background: linear-gradient(180deg, #0f172a, #020617);
+    background: #ffffff;
+    border-right: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
 }
@@ -35,10 +37,10 @@ body {
 /* Brand */
 .sidebar-brand {
     padding: 20px;
-    color: #fff;
+    color: #0f172a;
     font-weight: 700;
     font-size: 1.1rem;
-    border-bottom: 1px solid rgba(255,255,255,.08);
+    border-bottom: 1px solid #e5e7eb;
 }
 
 /* Nav */
@@ -47,33 +49,43 @@ body {
     flex-grow: 1;
 }
 
+/* Link */
 .sidebar .nav-link {
-    color: #94a3b8;
+    color: #475569;
     padding: 12px 20px;
     margin: 4px 12px;
     border-radius: 12px;
     display: flex;
     align-items: center;
     gap: 12px;
-    transition: .25s ease;
+    transition: all .25s ease;
     position: relative;
     font-weight: 500;
 }
 
+/* Icon */
 .sidebar .nav-link i {
     font-size: 1.1rem;
+    color: #64748b;
 }
 
 /* Hover */
 .sidebar .nav-link:hover {
-    background: rgba(255,255,255,.08);
-    color: #fff;
+    background: #f1f5f9;
+    color: #0f172a;
+}
+.sidebar .nav-link:hover i {
+    color: #0f172a;
 }
 
 /* Active */
 .sidebar .nav-link.active {
-    background: rgba(255,255,255,.12);
-    color: #fff;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: 600;
+}
+.sidebar .nav-link.active i {
+    color: #0369a1;
 }
 .sidebar .nav-link.active::before {
     content: '';
@@ -82,7 +94,7 @@ body {
     top: 8px;
     bottom: 8px;
     width: 4px;
-    background: #3b82f6;
+    background: #0ea5e9;
     border-radius: 0 4px 4px 0;
 }
 
@@ -91,15 +103,15 @@ body {
     padding: 12px 20px;
     font-size: .7rem;
     letter-spacing: .12em;
-    color: #64748b;
+    color: #94a3b8;
     margin-top: 16px;
 }
 
 /* User */
 .sidebar-user {
     padding: 16px 20px;
-    border-top: 1px solid rgba(255,255,255,.08);
-    color: #e5e7eb;
+    border-top: 1px solid #e5e7eb;
+    color: #334155;
     display: flex;
     align-items: center;
     gap: 10px;

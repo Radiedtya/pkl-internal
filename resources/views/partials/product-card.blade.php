@@ -12,11 +12,11 @@
         </a>
 
         {{-- Discount Badge --}}
-        {{-- @if($product->has_discount)
+        @if($product->has_discount)
             <span class="badge-discount">
                 -{{ $product->discount_percentage }}%
             </span>
-        @endif --}}
+        @endif
 
         {{-- Wishlist(Matikan saja) --}}
         {{-- @auth
@@ -42,7 +42,7 @@
         </h6>
 
         {{-- Price(Matikan saja) --}}
-        {{-- <div class="mt-auto">
+        <div class="mt-auto">
             @if($product->has_discount)
                 <small class="old-price">
                     {{ $product->formatted_original_price }}
@@ -62,7 +62,7 @@
                     <i class="bi bi-x-circle"></i> Stok Habis
                 </small>
             @endif
-        </div> --}}
+        </div>
     </div>
 
     {{-- Footer(Matikan saja) --}}
