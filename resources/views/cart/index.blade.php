@@ -72,9 +72,38 @@
 
 <div class="container py-4">
 
-    <h2 class="mb-4 fw-bold">
-        <i class="bi bi-cart-fill me-2"></i>Keranjang Belanja
-    </h2>
+    {{-- Header --}}
+    <div class="row align-items-end mb-5">
+        <div class="col">
+            {{-- Breadcrumb: Supaya user tahu posisi mereka --}}
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb mb-2">
+                    <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted text-primary">Home</a></li>
+                    <li class="breadcrumb-item" aria-current="page">Keranjang Belanja</li>
+                </ol>
+            </nav>
+            
+            {{-- Title Section --}}
+            <div class="d-flex align-items-center">
+                <div class="text-dark p-3 rounded-3 me-3 shadow-sm">
+                    <i class="bi bi-cart-fill fs-3"></i>
+                </div>
+                <div>
+                    <h2 class="mb-0 fw-bold text-dark">Keranjang Belanja</h2>
+                    {{-- <p class="text-muted mb-0">Kamu punya <span class="fw-bold text-primary">3 Produk</span> di dalam keranjang</p> --}}
+                </div>
+            </div>
+        </div>
+        
+        {{-- Opsional: Tombol aksi cepat --}}
+        <div class="col-auto d-none d-md-block">
+            <a href="{{ route('catalog.index') }}" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="bi bi-arrow-left me-2"></i>Lanjut Belanja
+            </a>
+        </div>
+    </div>
+
+    <hr class="mb-4 opacity-10">
 
     @if($cart && $cart->items->count())
     <div class="row g-4">
@@ -229,14 +258,36 @@
     @else
 
     {{-- EMPTY CART --}}
-    <div class="text-center py-5">
-        <i class="bi bi-cart-x display-1 text-muted"></i>
-        <h4 class="mt-3 fw-bold">Keranjang Kosong</h4>
-        <p class="text-muted">Belum ada produk di keranjang kamu</p>
-        <a href="{{ route('catalog.index') }}" class="btn btn-primary">
-            <i class="bi bi-cart me-2"></i>Mulai Belanja
-        </a>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 text-center py-5 px-4 shadow-sm rounded-4 bg-white">
+                <div class="mb-4 d-inline-flex align-items-center justify-content-center rounded-circle bg-light" style="width: 120px; height: 120px;">
+                    <i class="bi bi-cart-x text-secondary" style="font-size: 4rem;"></i>
+                </div>
+                
+                <h3 class="fw-bold text-dark">Wah, Keranjangmu Kosong!</h3>
+                <p class="text-muted mb-4">
+                    Sepertinya kamu belum memilih barang impian. <br>
+                    Yuk, cek koleksi terbaru kami sekarang!
+                </p>
+                
+                <a href="{{ route('catalog.index') }}" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm transition-all">
+                    <i class="bi bi-cart me-2"></i>Mulai Belanja
+                </a>
+            </div>
+        </div>
     </div>
+
+<style>
+    /* Tambahan agar hover lebih smooth */
+    .transition-all {
+        transition: all 0.3s ease;
+    }
+    .transition-all:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+</style>
 
     @endif
 </div>

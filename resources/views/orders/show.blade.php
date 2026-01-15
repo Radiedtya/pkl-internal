@@ -41,18 +41,17 @@
                         {{-- STATUS --}}
                         @php
                             $statusMap = [
-                                'pending' => ['warning','Menunggu Pembayaran','hourglass-split'],
-                                'processing' => ['info','Diproses','gear'],
+                                'pending' => ['warning','Menunggu Pembayaran',''],
+                                'processing' => ['primary','Diproses',''],
                                 'shipped' => ['primary','Dikirim','truck'],
-                                'delivered' => ['success','Selesai','check-circle'],
-                                'cancelled' => ['danger','Dibatalkan','x-circle'],
+                                'delivered' => ['success','Selesai',''],
+                                'cancelled' => ['danger','Dibatalkan',''],
                             ];
+                            // tambahkan ikon sesuai kebutuhan
                             [$color,$label,$icon] = $statusMap[$order->status] ?? ['secondary',$order->status,'question-circle'];
                         @endphp
 
-                        <span class="badge bg-{{ $color }} px-4 py-2 rounded-pill fs-6">
-                            <i class="bi bi-{{ $icon }}"></i> {{ $label }}
-                        </span>
+                        <span class="badge bg-{{ $color }} px-4 py-3 rounded-pill fs-5">{{ $label }}</span>
 
                     </div>
                 </div>

@@ -18,7 +18,7 @@
         </div>
 
         @if($products->count())
-            <span class="badge wishlist-count">
+            <span class="badge wishlist-count bg-danger">
                 {{ $products->total() }} Produk
             </span>
         @endif

@@ -78,6 +78,14 @@
             </button>
         </form>
     </div> --}}
+
+    <div class="card-footer bg-transparent border-0 pt-0">
+        <a href="{{ route('catalog.show', $product->slug) }}"
+           class="btn btn-primary btn-sm w-100">
+            <i class="bi bi-eye me-1"></i>
+            Lihat Detail
+        </a>
+    </div>
 </div>
 
 <style>

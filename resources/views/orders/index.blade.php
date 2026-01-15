@@ -30,10 +30,10 @@
 
                     @php
                         $statuses = [
-                            null => ['SEMUA','secondary','bi-grid'],
-                            'pending' => ['UNPAID','warning','bi-hourglass-split'],
-                            'processing' => ['PROCESSING','info','bi-gear'],
-                            'completed' => ['COMPLETED','secondary','bi-check-circle'],
+                            null => ['All','dark',''],
+                            'pending' => ['Unpaid','warning',''],
+                            'processing' => ['Processing','primary',''],
+                            'completed' => ['Completed','secondary',''],
                         ];
                     @endphp
 
@@ -154,9 +154,9 @@
                 {{-- ACTION --}}
                 <div class="col-md-1 text-md-end">
                     <a href="{{ route('orders.show',$order) }}"
-                       class="btn btn-outline-primary btn-sm rounded-pill px-4">
+                       class="btn btn-outline-primary btn-sm rounded-pill px-2 me-5"
+                       title="Lihat Detail Pesanan">
                        <i class="bi bi-eye"></i>
-                       Lihat
                     </a>
                 </div>
 
@@ -173,9 +173,9 @@
     @endforelse
 
     {{-- PAGINATION --}}
-    {{-- <div class="d-flex justify-content-center mt-4">
-        {{ $orders->links() }}
-    </div> --}}
+    <div class="d-flex justify-content-center mt-4">
+        {{ $orders->links('pagination::bootstrap-5') }}
+    </div>
 
 </div>
 

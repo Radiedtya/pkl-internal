@@ -151,7 +151,7 @@ body {
     <aside class="sidebar">
 
         <div class="sidebar-brand">
-            <i class="bi bi-shield-lock me-2"></i> Admin Panel
+            <img src="{{ asset('assets/skolafit-removebg-preview.png') }}" alt="SkolaFit Logo" width="200" class="me-2">
         </div>
 
         <nav class="sidebar-nav">

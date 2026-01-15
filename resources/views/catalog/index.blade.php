@@ -75,7 +75,7 @@
                                                onchange="this.form.submit()">
                                         <label class="form-check-label">
                                             <span>{{ $cat->name }}</span>
-                                            <small class="badge bg-secondary">
+                                            <small class="badge bg-dark">
                                                 {{ $cat->products_count }}
                                             </small>
                                         </label>
